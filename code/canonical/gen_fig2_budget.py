@@ -74,10 +74,17 @@ def main():
 
     # final-readability revision: exact text width (506.30 pt), no bbox tightening; 8 pt text, 7.5 pt ticks;
     # one shared x label and a one-row legend above the panels.
+    # figure-polish revision (2026-10-25): same canvas, points and display offsets (+/-0.18 of a budget step,
+    # disclosed in the caption); each map also has its own line style; thinner, lighter interval bars below
+    # the means; SRTS-BCE (the pre-declared comparison) drawn slightly heavier, same marker size as the others.
     FS, FT = 8, 7.5
     W_IN, H_IN = 506.295 / 72.27, 1.84
     L, R, GAP, BOT, PH = 0.62, 0.04, 0.16, 0.42, 0.96
     PW = (W_IN - L - R - 3 * GAP) / 4
+    LS = {"HTS-BCE": (0, (4, 1.6)), "SRTS-BCE": "-", "SMART+BCE": (0, (1, 1.2)), "PWLinear-3": (0, (5, 1.4, 1, 1.4))}
+    SHOW = {"HTS-BCE": "HTS+BCE", "SRTS-BCE": "SRTS-BCE (pre-declared)", "SMART+BCE": "SMART+BCE", "PWLinear-3": "PWLinear-3"}
+    TITLES = {"amazon_id": "Amazon, seen reviewers", "amazon_conf": "Amazon, unseen reviewers",
+              "yahoo_id": "Yahoo, development", "yahoo_conf": "Yahoo, confirmation"}   # display only; the data file keeps its titles
     fig = plt.figure(figsize=(W_IN, H_IN))
     axes = []
     for j in range(4):
@@ -90,21 +97,23 @@ def main():
             off = (k - 1.5) * 0.12
             mean = [c[f"{m}/n={b}"]["mean"] for b in BUDGETS]
             lo = [c[f"{m}/n={b}"]["ci95"][0] for b in BUDGETS]; hi = [c[f"{m}/n={b}"]["ci95"][1] for b in BUDGETS]
-            ax.plot(xs + off, mean, color=col, lw=1.0, marker=mk, ms=3.6, mfc=col, mew=0.8, label=nm)   # solid markers
+            pre = m == "SRTS-BCE"
+            ax.plot(xs + off, mean, color=col, lw=1.45 if pre else 0.95, ls=LS[m], marker=mk, ms=3.6, mfc=col, mec=col,
+                    mew=0.6, zorder=3, label=SHOW[m])   # solid markers
             for x, l, h in zip(xs + off, lo, hi):
-                ax.plot([x, x], [l, h], color=col, lw=0.9)
-        ax.axhline(0, color="#777777", lw=0.7, zorder=0)
+                ax.plot([x, x], [l, h], color=col, lw=0.75, alpha=0.6 if pre else 0.45, solid_capstyle="butt", zorder=2)
+        ax.axhline(0, color="#666666", lw=0.7, zorder=0)
         ax.set_xticks(xs); ax.set_xticklabels([str(b) for b in BUDGETS], fontsize=FT)
-        ax.set_title(title.replace("(confirm.)", "(conf.)"), fontsize=FS, pad=3)   # display label only; the data file keeps the title
+        ax.set_title(TITLES[key], fontsize=FS, pad=3)
         ax.tick_params(axis="both", labelsize=FT, length=2.5, pad=1.5)
         if j:
             ax.tick_params(axis="y", labelleft=False)
         ax.grid(axis="y", alpha=0.25, lw=0.5); ax.spines[["top", "right"]].set_visible(False)
-    axes[0].set_ylabel("ECE$_{15}$: map $-$ scalar (pp)", fontsize=FS)
-    fig.text((L + (W_IN - L - R) / 2) / W_IN, 0.04 / H_IN, "calibration labels $n$ (exact budget)", ha="center", va="bottom", fontsize=FS)
+    axes[0].set_ylabel("ECE$_{15}$ difference (pp)", fontsize=FS)
+    fig.text((L + (W_IN - L - R) / 2) / W_IN, 0.04 / H_IN, "Calibration-label budget $n$", ha="center", va="bottom", fontsize=FS)
     h, l = axes[0].get_legend_handles_labels()
     fig.legend(h, l, loc="upper center", ncol=4, fontsize=FS, frameon=False, bbox_to_anchor=((L + (W_IN - L - R) / 2) / W_IN, 1.0),
-               handlelength=1.8, columnspacing=1.6, borderaxespad=0.1)
+               handlelength=2.6, columnspacing=1.6, borderaxespad=0.1)
     fig.savefig(FIG, metadata={"CreationDate": None})
     print("wrote", FIG, "gate", gate_max)
 

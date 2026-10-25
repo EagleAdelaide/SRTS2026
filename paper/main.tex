@@ -371,13 +371,13 @@ lowest mean ECE from $n{=}625$ on.
 \centering
 \includegraphics[width=\textwidth]{figures/fig2_budget.pdf}
 \Description{Four line panels sharing a vertical axis of ECE15 difference, map minus scalar, in percentage points, with a horizontal zero line, and calibration budget 250, 625, 1250, 2500 on the horizontal axis. Panels: Amazon seen reviewers (development), Amazon unseen reviewers (confirmation), Yahoo development, Yahoo confirmation. Four lines with interval bars: HTS+BCE, SRTS-BCE, SMART+BCE, PWLinear-3. On both Amazon panels the lines start above zero at n=250 (except HTS+BCE near or below zero) and fall below zero by n=1250 or 2500, between about -0.4 and -0.9. On both Yahoo panels all lines stay above zero at every budget, decreasing from about 0.8 to 1.8 at n=250 to about 0 to 0.3 at n=2500.}
-\caption{Budget-dependent ranking: ECE$_{15}$ of each conditional map minus
-the scalar TvA-TS versus the calibration budget (seen-reviewer
+\caption{ECE rankings vary with the calibration-label budget and task: ECE$_{15}$ of each conditional map minus
+the scalar TvA-TS (seen-reviewer
 development split and unseen-reviewer confirmation set for Amazon;
-development and confirmation sets for Yahoo). Positive: the map is worse; one shared budget axis. Means over seeds
-and draws with 95\% seed$\to$draw bootstrap intervals. SRTS-BCE $-$
+development and confirmation sets for Yahoo). Positive: the map is worse. Means over seeds
+and draws with 95\% seed$\to$draw bootstrap intervals; points are offset horizontally for legibility only. SRTS-BCE $-$
 scalar is the pre-declared analysis (frozen primary at $n{=}250$ and $2500$,
-Table~\ref{tab:q1}); the other three maps' intervals are descriptive.}
+Table~\ref{tab:q1}; drawn heavier for that reason only); the other three maps' intervals are descriptive.}
 \label{fig:budget}
 \end{figure*}
  The ID development split, the OOD validation reviewers and the
@@ -515,10 +515,10 @@ identity; the two unseen sets share source, models and calibration draws
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_boundary.pdf}
-\Description{Two panels. (a) Scatter plot with the scalar map's own signed accepted-set bias g_B on the horizontal axis (about -1.75 to +2.3 percentage points) and the change in signed bias D = g_map - g_scalar on the vertical axis (labelled shift D) (0 to 3 points), for four maps, three thresholds (circles 0.80, squares 0.90, triangles 0.95) and three Amazon splits (blue seen reviewers, orange and vermilion unseen reviewers), each with horizontal and vertical interval bars. A grey wedge left of zero below the line D = -2 g_B marks where the absolute bias narrows. The seen-reviewer points at 0.90 and 0.95 (g_B about -0.9 and -1.2, D about 1.0 to 1.6) lie inside the wedge near its edge; the seen points at 0.80 (g_B about -0.1) and all unseen points (g_B from about 0 to +2) lie outside. (b) Scatter of the selection share in the forward order (horizontal, 0 to 80 percent) against the reverse order (vertical) with a diagonal; blue diamonds for n=2500 lie below about 20 percent forward and 32 percent reverse; pink crosses for n=250 reach up to about 73 percent in the reverse order.}
-\caption{When recalibration reduces absolute accepted-set bias (Amazon;
-post hoc). (a) Change in signed bias $D=g_{\text{map}}-g_{\text{scalar}}=S+P$ against the
-scalar's own bias $g_B$ for four maps, three thresholds and three splits
+\Description{Two panels. (a) Scatter plot with the scalar map's own signed accepted-set bias g_B on the horizontal axis (about -1.75 to +2.3 percentage points) and the change in signed bias D = g_map - g_scalar on the vertical axis (labelled change in signed accepted-set bias D) (0 to 3 points), for four maps, three thresholds (circles 0.80, squares 0.90, triangles 0.95) and three Amazon splits (blue seen reviewers, orange and vermilion unseen reviewers), each with horizontal and vertical interval bars. A grey wedge left of zero below the dark boundary line D = -2 g_B, labelled g_B = -D/2, marks where the absolute bias narrows. The seen-reviewer points at 0.90 and 0.95 (g_B about -0.9 and -1.2, D about 1.0 to 1.6) lie inside the wedge near its edge; the seen points at 0.80 (g_B about -0.1) and all unseen points (g_B from about 0 to +2) lie outside. (b) Scatter of the selection share in the forward order (horizontal, 0 to 80 percent) against the reverse order (vertical) with a diagonal; blue diamonds for n=2500 lie below about 20 percent forward and 32 percent reverse; pink crosses for n=250 reach up to about 73 percent in the reverse order.}
+\caption{The direction of the absolute-bias change depends on the baseline bias (Amazon;
+post hoc). (a) Change in signed accepted-set bias $D=g_{\text{map}}-g_{\text{scalar}}=S+P$ against the
+baseline (scalar) bias $g_B$ for four maps, three thresholds and three splits
 ($n{=}2500$, fixed thresholds); $|g|$ narrows exactly where $DH<0$, here
 (all $D>0$) the shaded wedge $g_B<-D/2$. Bars: descriptive 95\% seed$\to$draw intervals (5 seeds
 $\times$ 20 draws) of each coordinate. (b) Share of the selection term in
@@ -573,18 +573,18 @@ exploratory.
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_final_audit.pdf}
-\Description{Three panels. (a) Log-log lines of the root-mean-square error of the estimated difference D against mean distinct labels (25 to 1000) on unseen reviewers for five designs: raw-correctness union sampling is highest (about 6.6 to 1 point), error-centred union sampling about 2.3 to 0.35, and switcher strata, active inference and LURE overlap at the bottom (about 1.3 to 0.18). (b) Power of the joint (D,H) test within the audit pool on seen reviewers against the label-budget cap from 25 to 5000, one line per margin stratum (below 0.25 points, 6 cells; 0.25 to 0.5, 4; 0.5 to 1, 19; above 1, 5): power stays near zero up to about 250 labels and rises to about 0.4, 0.85, 0.95 and 0.99 at the 5000 cap; rings at 5000 mark strata containing full-census cells; a dashed line for the corrected guardrail over all 34 beneficial cells reaches about 0.46. (c) Strip plots over 100 reviewer partitions and directions of the mean target-half regret: the source half's full-label choice has median about 0.04 points (most below 0.2), always keeping the scalar about 0.37, always switching about 0.21; diamonds mark the original split (about 0.06 and 0.11 for the source choice).}
-\caption{Estimate, decide, generalize (Amazon, $n{=}2500$, fixed
+\Description{Three panels. (a) Log-log lines of the root-mean-square error of the estimated difference D against mean distinct labels (25 to 1000) on unseen reviewers for five designs: raw-correctness union sampling is highest (about 6.6 to 1 point), error-centred union sampling about 2.3 to 0.35, and switcher strata, active inference and LURE overlap at the bottom (about 1.3 to 0.18). (b) Power of the joint (D,H) test within the audit pool on seen reviewers against the label-budget cap from 25 to 5000, one line per margin stratum (below 0.25 points, 6 cells; 0.25 to 0.5, 4; 0.5 to 1, 19; above 1, 5): power stays near zero up to about 250 labels and rises to about 0.4, 0.85, 0.95 and 0.99 at the 5000 cap; rings at 5000 mark strata containing full-census cells; a dashed line for the G1 rule (corrected guardrail) over all 34 beneficial cells reaches about 0.46. (c) Strip plots over 100 reviewer partitions and directions of the mean target-half regret: the source half's full-label choice has median about 0.04 points (most below 0.2), always keeping the scalar about 0.37, always switching about 0.21; diamonds mark the original split (about 0.06 and 0.11 for the source choice).}
+\caption{Estimating $D$ and detecting a beneficial change have different observed label requirements (Amazon, $n{=}2500$, fixed
 thresholds; calibrators fixed at one draw per seed; post hoc). (a) RMSE
 of $\hat D$ against mean distinct labels on unseen reviewers (60 cells,
-400 simulated audits each); dashed: sampling raw correctness. (b) Mean
+400 simulated audits each); grey dashed: raw-correctness union sampling. (b) Mean
 power of the joint $(D,H)$ test within the audit pool (seen reviewers;
 finite-population variances) against the label-budget cap, by margin
 stratum (cell counts); rings: some cells are a full census at that cap;
-dashed: corrected guardrail, all 34 beneficial cells. (c) Partition sensitivity: mean target-half regret in $|g|$ over 60
+dashed: G1 rule (corrected guardrail), all 34 beneficial cells. (c) Reviewer-partition sensitivity: mean target-half regret in $|g|$ over 60
 seen-reviewer cells for 50 reviewer partitions $\times$ 2 directions, for
-the source half's full-label choice (`source choice'), always keeping the
-scalar and always switching, with medians (bars) and the original split
+the source half's full-label choice (`source-pool choice'), always keeping the
+scalar and always switching, with medians (bars) and the original partition
 (diamonds).
 Partitions share models and population: sensitivity analyses, not
 independent replications.}
@@ -811,9 +811,8 @@ component).
 \caption{Full comparison across calibration budgets, thresholds and
 matched coverage: each method
 minus scalar TvA-TS ($\times100$; negative = smaller absolute error than
-the scalar) on the Amazon and Yahoo confirmation sets, both budgets, three
-thresholds and matched coverage; means over seeds with 95\% hierarchical
-intervals. In this figure only, marker fill carries meaning: a filled marker means that the Bonferroni interval excludes zero, over the 64 fixed-threshold or the 120 matched-coverage contrasts of the post-hoc plan; elsewhere marker fill carries no meaning. PWLinear-3 is the
+the scalar) on the Amazon and Yahoo confirmation sets; means over seeds with 95\% hierarchical
+intervals. In this figure only, marker fill carries meaning: filled, the Bonferroni interval excludes zero, over the 64 fixed-threshold or the 120 matched-coverage contrasts of the post-hoc plan; elsewhere marker fill carries no meaning. Methods are offset within rows for legibility. PWLinear-3 is the
 original construction (in-sample scores, C-IN).}
 \label{fig:endpoints-full}
 \end{figure*}

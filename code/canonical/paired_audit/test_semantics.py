@@ -52,7 +52,7 @@ class TestSemantics(unittest.TestCase):
 
     def test_caps_are_not_labelled_as_exact_costs(self):
         self.assertIn("label-budget cap", TEX)
-        self.assertIn('"label-budget cap $m$"', FIG_SRC)
+        self.assertIn('"Label-budget cap $m$"', FIG_SRC)   # figure-polish revision: capitalized axis label, still a cap
         s = json.loads((W / "posthoc_final/summary_final.json").read_text())["rows"]
         self.assertLess(s["2500/id_test/fixed/G3/cap=5000"]["actual_distinct_labels_mean"], 5000)
         self.assertNotRegex(TEX, r"power 0\.31, 0\.58 and 0\.84 at 1\{,\}000")   # old exact-m phrasing

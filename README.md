@@ -37,6 +37,11 @@ bit-exact only with 4 CPU threads.
   from the per-run rows only.
 - The training pipeline of the CIFAR-100 ViT backbones (their logits are included).
 
+## Figure version
+The figures in `paper/figures/` are the final version of the paper. Figures 2, 4, 5 and 6 were revised for
+display only (line styles, interval shading, labels, legend placement); every plotted value is unchanged,
+and `reproduce_layer_B.sh` regenerates them with the scripts in `code/canonical/` (`docs/VERSIONS.md`).
+
 ## Known deviation
 `results/statistical_final_audit.json` records the absolute path of the script
 that wrote it, so layer B reports one difference, in that field only.

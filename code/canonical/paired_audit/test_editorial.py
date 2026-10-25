@@ -98,7 +98,7 @@ class EditorialFixes(unittest.TestCase):
         self.assertIn("the change in signed bias and the average of the two signed biases", ABSTRACT)
         self.assertIn("times the RMSE of switcher-stratified sampling", TEX)
         self.assertIn("8.2 times the RMSE of switcher-stratified sampling", TEX)          # closing edit O2
-        self.assertIn("Change in signed bias $D=g_{\\text{map}}-g_{\\text{scalar}}=S+P$", TEX)   # closing edit T1
+        self.assertIn("Change in signed accepted-set bias $D=g_{\\text{map}}-g_{\\text{scalar}}=S+P$", TEX)   # closing edit T1 (figure-polish term)
         self.assertIn("In the evaluated audits, estimating such a change took far fewer labels", TEX)  # closing edit O1
 
     # --- availability patch (2026-10-23) and final P0-P3 pass (2026-10-25): exact anonymous URL only;
@@ -115,6 +115,24 @@ class EditorialFixes(unittest.TestCase):
                      "kept only as a historical record", "\\textbf{Environment.}"):
             self.assertNotIn(gone, TEX, gone)
         self.assertNotIn("supplementary material", TEX.lower())
+
+    # --- figure-polish revision (2026-10-25): display-only changes are disclosed; exact boundary and terms
+    def test_figure_polish(self):
+        self.assertIn("points are offset horizontally for legibility only", TEX)            # Figure 2 offsets
+        self.assertIn("drawn heavier for that reason only", TEX)                          # pre-declared, not preferred
+        self.assertIn("Methods are offset within rows for legibility", TEX)               # Figure 6 offsets
+        self.assertIn("In this figure only, marker fill carries meaning", TEX)
+        fig2 = (CAN / "gen_fig2_budget.py").read_text()
+        self.assertIn("off = (k - 1.5) * 0.12", fig2)                                     # offsets unchanged
+        b = (CAN / "gen_fig_boundary.py").read_text()
+        self.assertIn("a.plot(xs, -2 * xs", b)                                           # exact boundary g_B = -D/2
+        self.assertIn("Change in signed accepted-set\\nbias $D$ (pp)", b)
+        self.assertIn("Baseline accepted-set bias $g_B$ (pp)", b)
+        e = (CAN / "gen_endpoint_fig.py").read_text()
+        self.assertIn("H_IN = W_IN * 165.75 / 496.49", e)                                # aspect ratio of the earlier file
+        self.assertNotIn('bbox_inches="tight"', e)
+        self.assertIn('mfc=col if c["excl0_bonf"] else "white"', e)                       # fill encoding unchanged
+        self.assertIn("categorical jitter only", (CAN / "gen_fig_final_audit.py").read_text())
 
     def test_final_p0_p3(self):
         # P1: reproducibility is a statement after C1-C3, not a fourth contribution

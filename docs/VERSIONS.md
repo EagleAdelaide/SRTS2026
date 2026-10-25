@@ -4,6 +4,11 @@
   release). It supersedes the r2 package (SHA-256 b265a150...), the r1
   revision package (bb4db078...) and srts_www2027_anon_repro.zip
   (1bd1a4ef...), all kept unchanged as historical packages.
+* Final figure version (2026-10-25): Figures 2, 4, 5 and 6 and their captions were revised for
+  display only (line styles, lighter intervals, labelled boundary g_B = -D/2, axis terms, legend
+  placement, Figure 6 at final size).  Every plotted value, interval, classification and method
+  order is identical to the earlier version, and the figure-data JSON files are byte-identical;
+  paired_audit/test_editorial.py (test_figure_polish) guards the disclosed display offsets.
 * Final P0-P3 pass (2026-10-25): contributions are C1-C3 with a reproducibility
   statement after them; Appendix F lists what the anonymized repository holds;
   wording only (ECE ranking, pre-specified external check, lower mean ECE).
