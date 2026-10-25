@@ -4,6 +4,9 @@
   release). It supersedes the r2 package (SHA-256 b265a150...), the r1
   revision package (bb4db078...) and srts_www2027_anon_repro.zip
   (1bd1a4ef...), all kept unchanged as historical packages.
+* Final manuscript text (2026-10-25): academic-language copy-edit of paper/main.tex and the
+  Section 5.2 heading; verify_paper_numbers.py and paired_audit/test_editorial.py follow the new
+  wording (every quoted number is still recomputed).  No code, data, result or figure changed.
 * Final figure version (2026-10-25): Figures 2, 4, 5 and 6 and their captions were revised for
   display only (line styles, lighter intervals, labelled boundary g_B = -D/2, axis terms, legend
   placement, Figure 6 at final size).  Every plotted value, interval, classification and method

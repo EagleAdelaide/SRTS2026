@@ -451,8 +451,8 @@ chk("CIVIL: sign of DH from mean D and g_B matches the observed change in all 12
     len(_pk) == 12 and all(_cp[k]["condition_narrows"] == _cp[k]["observed_narrows"] for k in _pk), "matches the observed change in all 12 cells")
 # figure-editorial revision: the abstract no longer calls the 12/12 match "consistency with the condition" (it is an
 # accounting identity on measured D and g_B); the 12/12 value is still checked against Section 5.4 below.
-chk("CIVIL abstract: maps reduce the accepted-set bias in 11 of 12 settings", len(_low) == 11,
-    "the same maps instead reduce the accepted-set bias in 11 of 12 map--threshold settings")
+chk("CIVIL abstract: maps reduce the absolute accepted-set bias in 11 of 12 settings", len(_low) == 11,
+    "the same maps instead reduce the absolute accepted-set bias in 11 of 12 map--threshold settings")
 _sf = [_cp[f"n=2500/{m}/t=80"]["share_sel_fwd"] for m in M]
 chk("CIVIL: forward selection share 0.45-0.87 at t=0.80", f"{min(_sf):.2f}" == "0.45" and f"{max(_sf):.2f}" == "0.87", "carries 0.45 to 0.87 of the change at $t{=}0.80$")
 _ac = CA["action"]["n=2500/HTS-BCE/gB90_toxic"]; _an = CA["action"]["n=2500/HTS-BCE/gB90_nontoxic"]

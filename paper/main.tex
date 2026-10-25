@@ -44,11 +44,11 @@ including at matched coverage; results on seen reviewers and Yahoo
 differ. Separately, ECE rankings depend on task and label budget, and no
 conditional map dominates. The absolute accepted-set bias decreases exactly when the change in
 signed bias and the average of the two signed biases have opposite signs;
-a positive change helps only where the scalar is underconfident by more
-than half of it. On CivilComments, under a protocol frozen before test
+a positive change reduces it only where the scalar is underconfident by
+more than half of that change. On CivilComments, under a protocol frozen before test
 outcomes, the scalar is underconfident at high thresholds and the same
-maps instead reduce the accepted-set bias in 11 of 12 map--threshold
-settings. In simulated audits, a few hundred target labels estimate the signed
+maps instead reduce the absolute accepted-set bias in 11 of 12
+map--threshold settings. In simulated audits, a few hundred target labels estimate the signed
 bias difference; at a 5{,}000-label cap, the evaluated joint test reaches
 mean power 0.84 in the Amazon cells where the map reduces absolute bias
 and 0.59 in the corresponding CivilComments cells.
@@ -61,21 +61,22 @@ forecast for the population it serves.
 \maketitle
 
 \section{Introduction}
-\textbf{The Web decision.} Web services must assign labels to streams of
-user-generated content, including product reviews and community questions.
+\textbf{Decision setting.} Many Web services assign labels to streams of
+user-generated content, such as product reviews and community questions.
 Consider a confidence-based routing rule: accept a classifier's label when
 its confidence exceeds a threshold, and defer the remainder for manual
 verification. This is an \emph{offline decision model}, not a claim that
-our benchmark platforms used such a rule. It captures a concrete Web
-measurement problem: can predicted errors be trusted \emph{in the items
+our benchmark platforms used such a rule. It poses a Web measurement
+question: can predicted errors be trusted \emph{in the items
 that automation actually handles}, including content from users absent
 from training?
 
-Two forecasts are needed: the number of wrong labels in an incoming
-batch, and the errors among automatically accepted labels. A low global
+Two forecasts are needed: a whole-batch forecast of wrong labels in an
+incoming batch, and an accepted-set forecast of the errors among
+accepted labels. A low global
 calibration error does not guarantee the latter: recalibration changes
 confidence values and may change the accepted set itself. Moreover, a frozen classifier is
-often recalibrated with only limited labels from its source population,
+often recalibrated with few labels from its source population,
 while the users it serves may change. Our experiments\footnote{Code is available at
 \url{https://anonymous.4open.science/r/SRTS2026-EB80/}.} measure this gap
 for review-rating and question-topic classification, with toxicity
@@ -87,8 +88,8 @@ We ask three questions:
 \item[\textbf{RQ1}] Which aggregate calibration improvements (whole-split ECE,
 whole-batch error count) fail to carry over to the error forecast for the
 accepted set, across label budgets, tasks and user populations?
-\item[\textbf{RQ2}] What changes in the reported scores and in the
-selected items explain the discrepancy?
+\item[\textbf{RQ2}] How do changes in the reported scores and in the
+selected items account for the discrepancy?
 \item[\textbf{RQ3}] What can a small audit with labels from the served
 users estimate, decide and transfer?
 \end{itemize}
@@ -100,8 +101,8 @@ A calibrator is fit once on $n$ labelled pairs and keeps $\hat y$
 unchanged. For a set of items $S$ we write $g(S)=\mathrm{mean}_S(c-b)$
 (positive means overconfident). At threshold $t$ the auto-accept set is
 $A_t=\{c\ge t\}$; $g(A_t)$ is its mean calibration bias (the gap between
-predicted and actual error rates among accepted items), and the whole-split
-relative error-count error is $|g(\text{all})|/R$, with $R$ the realized
+predicted and actual error rates among accepted items), and the relative
+whole-batch error-count error is $|g(\text{all})|/R$, with $R$ the realized
 error rate. When $A_t$ and its complement are non-empty,
 \begin{equation}
 g(\text{all})=P(A_t)\,g(A_t)+P(A_t^c)\,g(A_t^c),
@@ -112,7 +113,7 @@ the 15-bin expected calibration error; TS is temperature scaling; BCE is
 binary cross-entropy of $c$ against $b$. Figure~\ref{fig:reversal} shows one case: on unseen Amazon
 reviewers, replacing the scalar map by SRTS-BCE lowers ECE from 3.12 to
 2.51 and the whole-batch count error from 11.1\% to 8.6\%, while the
-accepted-set bias grows from $+0.9$ to $+2.5$ points; this is one setting,
+signed accepted-set bias grows from $+0.9$ to $+2.5$ points; this is one setting,
 not a property of every budget or task.
 
 \begin{figure}[t]
@@ -161,20 +162,20 @@ during backbone training, four conditional BCE maps reduce whole-batch
 count error yet increase mean absolute accepted-set bias relative to a
 scalar map, also at matched coverage; on seen reviewers, Yahoo and
 CivilComments the direction differs (Figure~\ref{fig:endpoints}). (C2)
-\emph{Scores, selection and the $D,H$ distinction (RQ2).} $|g|$ narrows
-exactly when $DH<0$; for a positive shift $D$, when the scalar is
-underconfident by more than half of it ($g_B<-D/2$). At $n{=}2500$ and $t{=}0.90$ this accounts for the contrasting seen and
+\emph{Scores, selection and the $D,H$ distinction (RQ2).} With $D=g_C-g_B$
+the change in signed accepted-set bias and $H=(g_C+g_B)/2$, $|g|$ narrows
+exactly when $DH<0$; for $D>0$, when the scalar is
+underconfident by more than half of $D$ ($g_B<-D/2$). At $n{=}2500$ and $t{=}0.90$ this accounts for the contrasting seen and
 unseen Amazon directions (at $t{=}0.80$ the seen-reviewer gap also widens;
-Figure~\ref{fig:boundary}), and it is consistent with the opposite
+Figure~\ref{fig:boundary}), and is consistent with the opposite
 CivilComments result, where the scalar is
 underconfident at high thresholds. On Amazon at $n{=}2500$ most of the
-change is higher reported confidence on accepted items, in either order
-of the accounting; on CivilComments a different accepted set matters
-more. We use these identities to interpret the observed changes in
-accepted-set bias. (C3) \emph{Estimation, decision and generalization (RQ3).}
+change is higher reported confidence on accepted items, in either accounting
+order; on CivilComments a different accepted set matters
+more. These are accounting identities, not causal effects. (C3) \emph{Estimation, decision and generalization (RQ3).}
 Established designs estimate $D$ from a few hundred target labels if they
 sample errors rather than raw correctness. Deciding whether $|g|$ shrinks
-needs the sign of $H=(g_C+g_B)/2$: in the seen-reviewer cells where the
+needs the sign of $H$: in the seen-reviewer cells where the
 map helps, the joint $(D,H)$ test we evaluated reaches mean power 0.31,
 0.58 and 0.84 under caps of 1{,}000, 2{,}500 and 5{,}000 labels
 (fixed-pool inference), and 0.59 at the largest cap on CivilComments.
@@ -219,8 +220,8 @@ inference~\cite{angelopoulos2023ppi,zrnic2024active}, and
 prediction-powered active testing~\cite{ashouritaklimi2026ppat} estimate model
 quality from few labels. Our audit (Section~\ref{sec:audit}) uses these designs; as in paired
 model comparison, items both maps accept carry little label information
-(none at matched coverage), and only the estimand, a difference of
-accepted-set biases, is specific here. \textbf{Position.}
+(none at matched coverage). What is specific here is the estimand, a
+difference of accepted-set biases. \textbf{Position.}
 Our contribution is an empirical analysis, with established calibration
 maps and audit designs, of whether improvements in the calibration of
 \emph{errors over a batch} extend to the \emph{mean error-rate forecast in
@@ -256,8 +257,8 @@ softplus-parameterized temperatures placed at the $\{1/6,1/2,5/6\}$
 quantiles of the score, fit jointly by BCE; it uses the same router.
 
 \textbf{Supporting controls.} Two nested capacity families, a
-score-construction control and a local account of grouping are
-supporting evidence for the budget dependence (Appendix~\ref{app:capacity}).
+score-construction control and a local account of grouping support the
+budget dependence (Appendix~\ref{app:capacity}).
 
 \section{Experimental Setup}
 \label{sec:setup}
@@ -294,17 +295,17 @@ draw.
 
 \textbf{Endpoints.} ECE$_{15}$ (with bin-count and equal-mass
 sensitivity), AdaECE~\cite{nixon2019measuring},
-smECE~\cite{blasiok2023smooth}, NLL, Brier and top-label BCE; whole-split
-relative error-count error; and, at $t\in\{0.80,0.90,0.95\}$, coverage
+smECE~\cite{blasiok2023smooth}, NLL, Brier and top-label BCE; relative
+whole-batch error-count error; and, at $t\in\{0.80,0.90,0.95\}$, coverage
 $P(A_t)$, the actual and predicted error rate in $A_t$, $g(A_t)$, the
 accepted-set relative count error $(\text{pred}-\text{actual})/\text{actual}$
 and the rejected-set gap $g(A_t^c)$, which follows from
-Eq.~\eqref{eq:decomp} and the saved whole-split fields; at matched
+Eq.~\eqref{eq:decomp} and the whole-split fields; at matched
 coverage, $g$ over each map's $\lceil qN\rceil$ most confident items, with
 $q$ the scalar's coverage at $t$; risk at fixed coverage and AURC. At a fixed threshold each map accepts a different
 set, so we compare how reliable each accepted set is ($|g(A_t)|$, with
 its sign reported), not its error rate or coverage alone; risk at fixed
-coverage compares sets of equal size and is a different estimand.
+coverage compares equal-size sets and is a different estimand.
 
 \textbf{Inference.} Six primary comparisons (SRTS-BCE versus TvA-TS and
 versus SMART+BCE at $n{=}250$ and $2500$, and their budget interactions)
@@ -333,8 +334,8 @@ pre-declared family and are not independent confirmations.
 \begin{table*}
 \centering\footnotesize
 \setlength{\tabcolsep}{3pt}
-\caption{ECE$_{15}$ differences in percentage points (negative = first
-method better), mean over seeds with 95\% hierarchical intervals. Anchor:
+\caption{ECE$_{15}$ differences in percentage points (negative: lower ECE
+for the first method), mean over seeds with 95\% hierarchical intervals. Anchor:
 CIFAR-100 development cell (at $n{=}2500$ the full pool, so only seeds
 vary). Amazon and Yahoo: confirmation sets, unblinded once for the frozen
 primaries; later post-hoc re-evaluations are labelled as such.
@@ -358,9 +359,9 @@ Comparison & $n{=}250$ & $2500$ & $n{=}250$ & $2500$ & $n{=}250$ & $2500$\\
 
 
 
-Table~\ref{tab:q1} gives the comparisons; budget means on the Web development splits are in Figure~\ref{fig:budget}. On the \emph{Amazon} confirmation set the
-scalar is better than SRTS-BCE at $n{=}250$, their ECE difference is not statistically resolved at $625$, and SRTS-BCE is better at $1250$ and
-$2500$; all five seeds agree in sign at $250$, $1250$ and $2500$. Both
+On the \emph{Amazon} confirmation set (Table~\ref{tab:q1}; budget means in Figure~\ref{fig:budget}) the
+scalar has lower ECE than SRTS-BCE at $n{=}250$ and SRTS-BCE has lower ECE at $1250$ and
+$2500$ (intervals exclude zero), whereas the difference at $625$ is not statistically resolved; all five seeds agree in sign at $250$, $1250$ and $2500$. Both
 frozen interactions $\Delta(250)-\Delta(2500)$ exclude zero ($+0.95$
 $[+0.62,\allowbreak+1.27]$ against the scalar, $-0.65$ $[-0.95,\allowbreak-0.37]$ against
 SMART+BCE). At $n{=}250$ the scalar and the two-parameter HTS+BCE are
@@ -374,10 +375,10 @@ lowest mean ECE from $n{=}625$ on.
 \caption{ECE rankings vary with the calibration-label budget and task: ECE$_{15}$ of each conditional map minus
 the scalar TvA-TS (seen-reviewer
 development split and unseen-reviewer confirmation set for Amazon;
-development and confirmation sets for Yahoo). Positive: the map is worse. Means over seeds
+development and confirmation sets for Yahoo). Positive: the map has higher ECE. Means over seeds
 and draws with 95\% seed$\to$draw bootstrap intervals; points are offset horizontally for legibility only. SRTS-BCE $-$
 scalar is the pre-declared analysis (frozen primary at $n{=}250$ and $2500$,
-Table~\ref{tab:q1}; drawn heavier for that reason only); the other three maps' intervals are descriptive.}
+Table~\ref{tab:q1}; line weight marks this pre-declared comparison); the other three maps' intervals are descriptive.}
 \label{fig:budget}
 \end{figure*}
  The ID development split, the OOD validation reviewers and the
@@ -388,11 +389,11 @@ within $0.08$ and $0.18$ points of the ID values, so the ECE ranking transferred
 from seen to unseen reviewers. On \emph{Yahoo} no conditional
 map has a lower mean ECE than the scalar at any budget, and every Yahoo
 comparison with the scalar in Table~\ref{tab:q1} excludes zero in the
-scalar's favour; here HTS+BCE is also worse than the scalar at $n{=}250$. With three Yahoo
-training seeds the seed-level $t$ intervals are wider: for the frozen SRTS-BCE versus scalar comparisons they reach zero
+scalar's favour; here HTS+BCE also exceeds the scalar's ECE at $n{=}250$. With three Yahoo
+training seeds, seed-level $t$ intervals are wider: for the frozen SRTS-BCE versus scalar comparisons they reach zero
 ($[-0.04,+2.43]$ at $n{=}250$, $[-0.01,+0.33]$ at $n{=}2500$), as does
 SRTS-BCE versus SMART+BCE at $n{=}250$, although all three seeds agree
-in sign. SRTS-BCE stays better than SMART+BCE at every
+in sign. SRTS-BCE has lower mean ECE than SMART+BCE at every
 budget on both tasks, a gap that shrinks with $n$; under a per-task
 Bonferroni correction ($1-0.05/6$) ten of the twelve confirmation
 comparisons still exclude zero, the exceptions being SRTS-BCE versus
@@ -510,7 +511,7 @@ identity; the two unseen sets share source, models and calibration draws
 (Appendix~\ref{app:posthoc}).
 
 
-\subsection{RQ2: How do changes in scores and selected items explain the discrepancy? (post hoc)}
+\subsection{RQ2: Score and Selection Accounting (post hoc)}
 \label{sec:mechanism}
 \begin{figure*}[t]
 \centering
@@ -556,14 +557,14 @@ Figure~\ref{fig:boundary}b). At $n{=}250$ the split depends on the order
 The direction of the change in $|g|$ follows from an exact condition.
 Since $g_C^2-g_B^2=2DH$ with $D=g_C-g_B$ and $H=(g_C+g_B)/2$,
 $|g_C|<|g_B|$ exactly when $DH<0$; for $D>0$, when $g_B<-D/2$: the
-scalar must be underconfident by more than half the shift. At
-$t{=}0.90$ the shift is $+1.30$ to $+1.59$ points and the scalar's
+scalar must be underconfident by more than half the change. At
+$t{=}0.90$ the change is $+1.30$ to $+1.59$ points and the scalar's
 residual is $-0.89$ $[-1.19,-0.62]$ on seen and $+0.79$ / $+0.94$ on the
 two unseen sets, so $|g|$ narrows on seen and widens on unseen reviewers;
 at $t{=}0.80$ the seen residual ($-0.13$) is too small and $|g|$ widens
 there as well (Figure~\ref{fig:boundary}a; the mean per-draw change in
 $|g|$ follows the condition in all 72 cells). The seen-reviewer gains lie
-close to the boundary, which is what makes them hard to certify
+close to the boundary, which makes them hard to certify
 (Section~\ref{sec:audit}). This is an accounting on fixed items and fitted
 maps, not a causal decomposition; it uses inspected splits and is
 exploratory.
@@ -756,11 +757,11 @@ ECE rankings depend on label budget and task. The 24 confirmation-set gap
 contrasts are also supported by seed-level intervals, whereas support for
 most of the 96 seen-versus-unseen contrasts relies on the seed$\to$draw
 bootstrap. On Amazon at $n{=}2500$, changes in reported confidence dominate the
-observed change in signed accepted-set bias. Absolute bias decreases
-exactly when $DH<0$; for a positive bias change $D=g_C-g_B$, exactly when
+change in signed accepted-set bias. Absolute bias decreases
+exactly when $DH<0$; for a positive bias change $D=g_C-g_B$, when
 $g_B<-D/2$. On
-CivilComments, where the scalar's bias differs, the same maps narrow it in
-11 of 12 settings, so the direction depends on the scalar's bias in the
+CivilComments, where the scalar's bias differs, the same maps narrow the absolute bias in
+11 of 12 settings: the direction depends on both $D$ and the scalar's bias in the
 served population. In the evaluated audits, estimating such a change took far fewer labels
 than deciding whether it helps: a few hundred labels estimate the signed
 difference, whereas the joint test we evaluated needed caps of thousands

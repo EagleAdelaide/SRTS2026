@@ -119,7 +119,7 @@ class EditorialFixes(unittest.TestCase):
     # --- figure-polish revision (2026-10-25): display-only changes are disclosed; exact boundary and terms
     def test_figure_polish(self):
         self.assertIn("points are offset horizontally for legibility only", TEX)            # Figure 2 offsets
-        self.assertIn("drawn heavier for that reason only", TEX)                          # pre-declared, not preferred
+        self.assertIn("line weight marks this pre-declared comparison", TEX)               # pre-declared, not preferred
         self.assertIn("Methods are offset within rows for legibility", TEX)               # Figure 6 offsets
         self.assertIn("In this figure only, marker fill carries meaning", TEX)
         fig2 = (CAN / "gen_fig2_budget.py").read_text()
@@ -133,6 +133,20 @@ class EditorialFixes(unittest.TestCase):
         self.assertNotIn('bbox_inches="tight"', e)
         self.assertIn('mfc=col if c["excl0_bonf"] else "white"', e)                       # fill encoding unchanged
         self.assertIn("categorical jitter only", (CAN / "gen_fig_final_audit.py").read_text())
+
+    # --- academic-language pass (2026-10-25): terminology and scope of the copy-edit
+    def test_academic_language(self):
+        for x in ("\\textbf{Decision setting.}", "account for the discrepancy",
+                  "the same maps instead reduce the absolute accepted-set bias in 11 of 12 map--threshold settings",
+                  "With $D=g_C-g_B$ the change in signed accepted-set bias and $H=(g_C+g_B)/2$",
+                  "These are accounting identities, not causal effects.",
+                  "the direction depends on both $D$ and the scalar's bias in the served population",
+                  "SRTS-BCE has lower mean ECE than SMART+BCE at every budget on both tasks",
+                  "a whole-batch forecast of wrong labels", "an accepted-set forecast of the errors"):
+            self.assertIn(x, TEX, x)
+        for gone in ("The Web decision", "Web services must", "stays better than", "positive shift", "half the shift",
+                     "explain the discrepancy", "drawn heavier for that reason only", "is also worse than the scalar"):
+            self.assertNotIn(gone, TEX, gone)
 
     def test_final_p0_p3(self):
         # P1: reproducibility is a statement after C1-C3, not a fourth contribution
