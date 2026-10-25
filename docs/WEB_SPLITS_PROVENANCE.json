@@ -1,0 +1,40 @@
+{
+ "dataset": "WILDS amazon v2.1 (official download_url bundle 0xe3ed909..., compressed_size 1989805589 verified)",
+ "task": "review text -> 1..5 stars; official domain = reviewer",
+ "split_sizes": {
+  "train": 245502,
+  "id_val": 46950,
+  "id_test": 46950,
+  "val": 100050,
+  "test": 100050
+ },
+ "n_reviewers": {
+  "train": 1252,
+  "id_val": 626,
+  "id_test": 626,
+  "val": 1334,
+  "test": 1334
+ },
+ "overlap_checks": {
+  "train_vs_oodval_reviewers": 0,
+  "train_vs_oodtest_reviewers": 0,
+  "oodval_vs_oodtest_reviewers": 0,
+  "idval_reviewers_subset_of_train": 0,
+  "idtest_reviewers_subset_of_train": 0
+ },
+ "row_duplicates_across_splits": 0,
+ "class_counts_idval": {
+  "0": 586,
+  "1": 1323,
+  "2": 4060,
+  "3": 13010,
+  "4": 27971
+ },
+ "roles": {
+  "train": "backbone training only",
+  "id_val": "calibration POOL (exact-n draws) + epoch selection (id_val accuracy, source-only)",
+  "id_test": "source-distribution evaluation",
+  "val": "OOD DEVELOPMENT (disjoint reviewers)",
+  "test": "OOD CONFIRMATION - single unblinding after freeze"
+ }
+}

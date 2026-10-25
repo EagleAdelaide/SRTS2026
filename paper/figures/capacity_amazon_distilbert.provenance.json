@@ -1,0 +1,18 @@
+{
+ "command": "python gen_capacity_fig.py --cell amazon_distilbert --split id_test",
+ "commit": "207086a8d5c6be958d670cb3ba6ba64e383bc321",
+ "cell": "amazon_distilbert",
+ "split": "id_test",
+ "inputs": {
+  "results/www2027/suite/amazon_s0/amazon_distilbert_familyA_natural.jsonl": "cb23964ae0156b04e8215388828b0c3ee27cecc2e80692f37bb15c571ee4c1dc",
+  "results/www2027/suite/amazon_s1/amazon_distilbert_familyA_natural.jsonl": "a84cec6383a0d0738570658904d734ec8453c53b35a34f7583322a8328915265",
+  "results/www2027/suite/amazon_s2/amazon_distilbert_familyA_natural.jsonl": "a56e04f34129ef3c453961a7f7bf528db6aeca90391b99de668e13e4875fbff3",
+  "results/www2027/suite/amazon_s3/amazon_distilbert_familyA_natural.jsonl": "922909f432707225a2a09d471294955066ad9fded3ff5ff4839fab73fe5c2e90",
+  "results/www2027/suite/amazon_s4/amazon_distilbert_familyA_natural.jsonl": "b067b27281cff1988e4b26e93969f34e914870d2af26593fbc3c1c12cd698a2a",
+  "results/www2027/suite/amazon_s0/amazon_distilbert_familyB_natural.jsonl": "d5ab423a0a2fcad8ad06f408f661b6a62d032e85ae5c337fac010eda799f7729",
+  "results/www2027/suite/amazon_s1/amazon_distilbert_familyB_natural.jsonl": "2fcaabf62e67fba2bc643bbeb789ab6476d75ea59350ab98d309088fe2fa7f60",
+  "results/www2027/suite/amazon_s2/amazon_distilbert_familyB_natural.jsonl": "6b950634d5958559e91cae419b9901dd12d91bef95bc40fe89ab5dd61407c085",
+  "results/www2027/suite/amazon_s3/amazon_distilbert_familyB_natural.jsonl": "979e78a93be3bd94bfc64010237979bfc8a37da43fc5e66ec3aa4246139fd250",
+  "results/www2027/suite/amazon_s4/amazon_distilbert_familyB_natural.jsonl": "0b09605024c868b9f60d526ecee52a60980bfba7852500e797592fcd1c288407"
+ }
+}

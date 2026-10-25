@@ -1,0 +1,18 @@
+{
+ "command": "python gen_capacity_fig.py --cell c100_vit --split test",
+ "commit": "207086a8d5c6be958d670cb3ba6ba64e383bc321",
+ "cell": "c100_vit",
+ "split": "test",
+ "inputs": {
+  "results/www2027/suite/c100_vit_s0/c100_vit_familyA_natural.jsonl": "236cfa9cb850970253d8ebb02030eb1609cb944a508698ed61de5a512e172c2c",
+  "results/www2027/suite/c100_vit_s1/c100_vit_familyA_natural.jsonl": "4c2c3c4b5ac74a8608325b7d45ce612f74eed95c804fd18581e15d3216ae6359",
+  "results/www2027/suite/c100_vit_s2/c100_vit_familyA_natural.jsonl": "f716d3ca3b19ca023cfec557e54719eea0ae21c4972f3527c3c9e86e4e44d399",
+  "results/www2027/suite/c100_vit_s3/c100_vit_familyA_natural.jsonl": "ca9f035ba1b49513faf7f0ade1965bf103a14e4adc1d062a51d6a2a31aa96485",
+  "results/www2027/suite/c100_vit_s4/c100_vit_familyA_natural.jsonl": "efb370b46b50f2cc5d71e9af0664045a4087a39a7c7a93d31444c6052c3c63a5",
+  "results/www2027/suite/c100_vit_s0/c100_vit_familyB_natural.jsonl": "f19b92e49ce85f5a7b6b52924936a68830bee1b99e10188e2033b47c9d674998",
+  "results/www2027/suite/c100_vit_s1/c100_vit_familyB_natural.jsonl": "cc6e89baa91adc50c46ad85e1ea70351f4ba58dafd35d4e342897f0d5a37b3a5",
+  "results/www2027/suite/c100_vit_s2/c100_vit_familyB_natural.jsonl": "63afe251aacc349d728551080cbdf99b7fe357234d95f302cb3e084b30d57aab",
+  "results/www2027/suite/c100_vit_s3/c100_vit_familyB_natural.jsonl": "0b9629c73cfe4a0891a4137f50da76c58323ae187840ccec6d3fc69ceac67561",
+  "results/www2027/suite/c100_vit_s4/c100_vit_familyB_natural.jsonl": "117fe20dad3a13b9dab1f01d48d139857f87046331d68f9fca9432d825f4fbb7"
+ }
+}

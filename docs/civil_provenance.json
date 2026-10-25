@@ -1,0 +1,38 @@
+{
+ "source": "huggingface google/civil_comments @ f2970eb3a55777454c94069077cc8d9b5866312d",
+ "license": "cc0-1.0",
+ "rows": {
+  "train": 1804874,
+  "validation": 97320,
+  "test": 97320
+ },
+ "label": "toxic = toxicity >= 0.5 (fraction of annotators)",
+ "ids_available": false,
+ "identity_columns_available": false,
+ "article_ids_available": false,
+ "duplicates": {
+  "train_rows_with_text_repeated_in_train": 34231,
+  "validation_rows_text_in_train": 1522,
+  "test_rows_text_in_train": 1554,
+  "test_rows_text_in_validation": 855,
+  "test_rows_text_in_train_or_validation": 1818
+ },
+ "label_rate": {
+  "train_sub": 0.08046818665021298,
+  "validation_calib": 0.0789510311071934
+ },
+ "sizes": {
+  "train_sub": 269038,
+  "val_check": 9580,
+  "val_calib": 86218,
+  "test": 97320,
+  "test_eval": 95502,
+  "test_pool_audit": 48820,
+  "test_pool_eval": 48500
+ },
+ "tokenizer": {
+  "name": "distilbert-base-uncased",
+  "max_length": 300,
+  "truncated_share_train_sub": 0.00011894230554791516
+ }
+}

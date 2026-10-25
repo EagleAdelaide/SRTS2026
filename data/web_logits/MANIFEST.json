@@ -1,0 +1,209 @@
+{
+ "format": "logits float32 [N,C]; official_row int64 [N]",
+ "label_join": "join_web_labels.py",
+ "files": {
+  "amazon_distilbert_s0/id_val.npz": {
+   "n": 46950,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "a978eef303fca4fa14873fbb16874ba813900c3a567e6de1ee562287db4e3978",
+   "suite_filename": "logits_id_val.npz"
+  },
+  "amazon_distilbert_s0/id_test.npz": {
+   "n": 46950,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "44144f6f14075041e422617c69fdf1374178a496168b618b5d23257610f8f2bd",
+   "suite_filename": "logits_id_test.npz"
+  },
+  "amazon_distilbert_s0/ood_val.npz": {
+   "n": 100050,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "e0dd1ac3f8dd8652951c4d9c8fced3c31f4d84ad8936a3c7c1608491a1613d90",
+   "suite_filename": "logits_val.npz"
+  },
+  "amazon_distilbert_s0/ood_test_CONFIRMATION.npz": {
+   "n": 100050,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "02ae78c2d346992e54da489ffb0fd958a77709c6c6d0c3ec4805b6c54c325b3c",
+   "suite_filename": "logits_test.npz"
+  },
+  "amazon_distilbert_s1/id_val.npz": {
+   "n": 46950,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "a978eef303fca4fa14873fbb16874ba813900c3a567e6de1ee562287db4e3978",
+   "suite_filename": "logits_id_val.npz"
+  },
+  "amazon_distilbert_s1/id_test.npz": {
+   "n": 46950,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "44144f6f14075041e422617c69fdf1374178a496168b618b5d23257610f8f2bd",
+   "suite_filename": "logits_id_test.npz"
+  },
+  "amazon_distilbert_s1/ood_val.npz": {
+   "n": 100050,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "e0dd1ac3f8dd8652951c4d9c8fced3c31f4d84ad8936a3c7c1608491a1613d90",
+   "suite_filename": "logits_val.npz"
+  },
+  "amazon_distilbert_s1/ood_test_CONFIRMATION.npz": {
+   "n": 100050,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "02ae78c2d346992e54da489ffb0fd958a77709c6c6d0c3ec4805b6c54c325b3c",
+   "suite_filename": "logits_test.npz"
+  },
+  "amazon_distilbert_s2/id_val.npz": {
+   "n": 46950,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "a978eef303fca4fa14873fbb16874ba813900c3a567e6de1ee562287db4e3978",
+   "suite_filename": "logits_id_val.npz"
+  },
+  "amazon_distilbert_s2/id_test.npz": {
+   "n": 46950,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "44144f6f14075041e422617c69fdf1374178a496168b618b5d23257610f8f2bd",
+   "suite_filename": "logits_id_test.npz"
+  },
+  "amazon_distilbert_s2/ood_val.npz": {
+   "n": 100050,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "e0dd1ac3f8dd8652951c4d9c8fced3c31f4d84ad8936a3c7c1608491a1613d90",
+   "suite_filename": "logits_val.npz"
+  },
+  "amazon_distilbert_s2/ood_test_CONFIRMATION.npz": {
+   "n": 100050,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "02ae78c2d346992e54da489ffb0fd958a77709c6c6d0c3ec4805b6c54c325b3c",
+   "suite_filename": "logits_test.npz"
+  },
+  "amazon_distilbert_s3/id_val.npz": {
+   "n": 46950,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "a978eef303fca4fa14873fbb16874ba813900c3a567e6de1ee562287db4e3978",
+   "suite_filename": "logits_id_val.npz"
+  },
+  "amazon_distilbert_s3/id_test.npz": {
+   "n": 46950,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "44144f6f14075041e422617c69fdf1374178a496168b618b5d23257610f8f2bd",
+   "suite_filename": "logits_id_test.npz"
+  },
+  "amazon_distilbert_s3/ood_val.npz": {
+   "n": 100050,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "e0dd1ac3f8dd8652951c4d9c8fced3c31f4d84ad8936a3c7c1608491a1613d90",
+   "suite_filename": "logits_val.npz"
+  },
+  "amazon_distilbert_s3/ood_test_CONFIRMATION.npz": {
+   "n": 100050,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "02ae78c2d346992e54da489ffb0fd958a77709c6c6d0c3ec4805b6c54c325b3c",
+   "suite_filename": "logits_test.npz"
+  },
+  "amazon_distilbert_s4/id_val.npz": {
+   "n": 46950,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "a978eef303fca4fa14873fbb16874ba813900c3a567e6de1ee562287db4e3978",
+   "suite_filename": "logits_id_val.npz"
+  },
+  "amazon_distilbert_s4/id_test.npz": {
+   "n": 46950,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "44144f6f14075041e422617c69fdf1374178a496168b618b5d23257610f8f2bd",
+   "suite_filename": "logits_id_test.npz"
+  },
+  "amazon_distilbert_s4/ood_val.npz": {
+   "n": 100050,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "e0dd1ac3f8dd8652951c4d9c8fced3c31f4d84ad8936a3c7c1608491a1613d90",
+   "suite_filename": "logits_val.npz"
+  },
+  "amazon_distilbert_s4/ood_test_CONFIRMATION.npz": {
+   "n": 100050,
+   "classes": 5,
+   "table": "wilds/amazon_v2.1:y_array",
+   "targets_sha256": "02ae78c2d346992e54da489ffb0fd958a77709c6c6d0c3ec4805b6c54c325b3c",
+   "suite_filename": "logits_test.npz"
+  },
+  "yahoo_distilbert_s0/id_val.npz": {
+   "n": 50000,
+   "classes": 10,
+   "table": "yahoo_answers_topics:train:topic",
+   "targets_sha256": "26eea031d0f5852cd2732bf82e37a0879ea5f7f40a5ea15a1b253b8b60d15d5c",
+   "suite_filename": "logits_id_val.npz"
+  },
+  "yahoo_distilbert_s0/id_test.npz": {
+   "n": 50000,
+   "classes": 10,
+   "table": "yahoo_answers_topics:train:topic",
+   "targets_sha256": "a4b51e58cafaa8f0e7b97da9b88e0b37ff3f6fc4c28271bec666bae9eca35157",
+   "suite_filename": "logits_id_test.npz"
+  },
+  "yahoo_distilbert_s0/test_CONFIRMATION.npz": {
+   "n": 60000,
+   "classes": 10,
+   "table": "yahoo_answers_topics:test:topic",
+   "targets_sha256": "a4d07c79a2f6a2374ce6d82d59b4f084127500eec0847ebc3e8bdfc88d05824e",
+   "suite_filename": "logits_test.npz"
+  },
+  "yahoo_distilbert_s1/id_val.npz": {
+   "n": 50000,
+   "classes": 10,
+   "table": "yahoo_answers_topics:train:topic",
+   "targets_sha256": "26eea031d0f5852cd2732bf82e37a0879ea5f7f40a5ea15a1b253b8b60d15d5c",
+   "suite_filename": "logits_id_val.npz"
+  },
+  "yahoo_distilbert_s1/id_test.npz": {
+   "n": 50000,
+   "classes": 10,
+   "table": "yahoo_answers_topics:train:topic",
+   "targets_sha256": "a4b51e58cafaa8f0e7b97da9b88e0b37ff3f6fc4c28271bec666bae9eca35157",
+   "suite_filename": "logits_id_test.npz"
+  },
+  "yahoo_distilbert_s1/test_CONFIRMATION.npz": {
+   "n": 60000,
+   "classes": 10,
+   "table": "yahoo_answers_topics:test:topic",
+   "targets_sha256": "a4d07c79a2f6a2374ce6d82d59b4f084127500eec0847ebc3e8bdfc88d05824e",
+   "suite_filename": "logits_test.npz"
+  },
+  "yahoo_distilbert_s2/id_val.npz": {
+   "n": 50000,
+   "classes": 10,
+   "table": "yahoo_answers_topics:train:topic",
+   "targets_sha256": "26eea031d0f5852cd2732bf82e37a0879ea5f7f40a5ea15a1b253b8b60d15d5c",
+   "suite_filename": "logits_id_val.npz"
+  },
+  "yahoo_distilbert_s2/id_test.npz": {
+   "n": 50000,
+   "classes": 10,
+   "table": "yahoo_answers_topics:train:topic",
+   "targets_sha256": "a4b51e58cafaa8f0e7b97da9b88e0b37ff3f6fc4c28271bec666bae9eca35157",
+   "suite_filename": "logits_id_test.npz"
+  },
+  "yahoo_distilbert_s2/test_CONFIRMATION.npz": {
+   "n": 60000,
+   "classes": 10,
+   "table": "yahoo_answers_topics:test:topic",
+   "targets_sha256": "a4d07c79a2f6a2374ce6d82d59b4f084127500eec0847ebc3e8bdfc88d05824e",
+   "suite_filename": "logits_test.npz"
+  }
+ }
+}

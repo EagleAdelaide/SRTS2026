@@ -1,0 +1,5 @@
+{
+ "train_seconds": 866.2467787265778,
+ "total_seconds": 941.2607765197754,
+ "val_check_accuracy": 0.9535490605427975
+}

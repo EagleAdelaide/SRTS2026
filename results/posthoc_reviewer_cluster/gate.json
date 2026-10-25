@@ -1,0 +1,26 @@
+{
+ "max_abs_diff_points": {
+  "TvA-TS": 0.0,
+  "HTS-BCE": 0.0,
+  "SRTS-BCE": 0.0,
+  "SMART+BCE": 0.0,
+  "PWLinear-3": 0.0
+ },
+ "violations": [],
+ "sum_identity_max": 6.418476861114186e-17,
+ "empty_accepted": 0,
+ "cpu_hours_after_seed": {
+  "0": 0.3270462144444444,
+  "1": 0.620005321388889,
+  "2": 0.9083985461111111,
+  "3": 1.197532731111111,
+  "4": 1.4984399619444444
+ },
+ "stopped": null,
+ "completed": true,
+ "reviewers": {
+  "id_test": 626,
+  "ood_val": 1334,
+  "ood_test_CONFIRMATION": 1334
+ }
+}

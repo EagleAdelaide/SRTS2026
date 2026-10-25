@@ -1,0 +1,80 @@
+{
+ "frozen_at": "2026-10-09 23:32:52",
+ "commit": "ecfa3e00bcab99826abdc1d530313830909f9c0c",
+ "script_sha256": {
+  "registry.py": "2397a8929fa9051c33f613fab366bc133cc4663fd8677d7885848ee12504956e",
+  "sampler.py": "debdafd650a507f4e7a69aaae2e8a2eeaef318ce8981727e3a43c5c4a221468b",
+  "srts.py": "8c0cc1b808c6a0f5520fa7728a1590fc6f458fd15f925153a9ae0f6d905a4c29",
+  "smart.py": "0de57b11e790cbe3ef9e1ea9540513521f40fd4b90048e2f5dd4ff4eff658935",
+  "maps.py": "0a8509194d221394fb3e3a80f308a49f8122b274b1eb84037a8f4a644addcbb0",
+  "shrinkage.py": "9428a5ea028bbdefe264406fec396232e7358ec95f52879f115311b80758c751",
+  "run_suite.py": "8e0071b5b2e3ef08994aa45155b114b05c32aab57edf0f3fe8fea16763bdc2aa",
+  "run_confirmation_unblinding.py": "cfb6c914b62653a569812386142b4fe2136a52f8dc81bcb88a762a725f0b17fe"
+ },
+ "all_canonical_sha256": {
+  "analyze_suite.py": "af1806f0d5dcf6965e07b794826c031682a7326f8fc0e18c24a7f34290cdcee8",
+  "baselines_ext.py": "cb9a3ee1d7328e5cdd5aa4f6e273b21ae8c83dfbf607117a49de75cd312a675a",
+  "build_asset_manifest.py": "f20dddc8d222e305cd18a71e475a2ce73120b375d1003729cef7f144be6bdd05",
+  "check_paper.py": "18c4ba4c3e755f2fea02a19adb2dd484becc3789277942859b6d63ba5202d50a",
+  "gen_capacity_fig.py": "c471f77c9f3e74bdbdd82ce8f2c137bdb7b632149bdfd0930a3b72855aea0c91",
+  "gen_main_matrix.py": "a385693a3630dca64a124375fa813dec507bd30b0d53eea7333f39d66dd45f47",
+  "make_freeze_manifest.py": "b883c9c7ab94f2a4fe32b3a863538566eb8501a9a2d6ca2daf764882cf5af4c9",
+  "maps.py": "0a8509194d221394fb3e3a80f308a49f8122b274b1eb84037a8f4a644addcbb0",
+  "recompute_clean.py": "30cad4df595319036d14504a7125f2597f062088bc04af6a610d7977779eed55",
+  "registry.py": "2397a8929fa9051c33f613fab366bc133cc4663fd8677d7885848ee12504956e",
+  "run_bsigma_diag.py": "ffcb55c45a711b52c0b2d9d6a78a9bdd7b400f8a1a585fdd5e6a10232ce5d4e6",
+  "run_confirmation_unblinding.py": "cfb6c914b62653a569812386142b4fe2136a52f8dc81bcb88a762a725f0b17fe",
+  "run_efficiency.py": "ee3e64783da869342fe45729ba5b51508d0f352f000a4abf9658b2b76332f36c",
+  "run_ext_suite.py": "6b39cd9af7a03bd1f0e9774481c48b7072bba5590fe946a8fe31a3d5dbaa3c4c",
+  "run_oof_diagnostics.py": "feec35eafb8119bc66ac897a4ad57779e324af93dee37dd6a89ae080610a6d5d",
+  "run_shift_suite.py": "b7b6ac2fe4d3d809ff6cafcc56cd387bc69cf7d53c54ba06c79568db1e3c3737",
+  "run_suite.py": "8e0071b5b2e3ef08994aa45155b114b05c32aab57edf0f3fe8fea16763bdc2aa",
+  "run_wp8_shrink.py": "d4c4afae4c352364b9cb30090f749d71c46ea07b7296b8815bff0a78f5f2cf22",
+  "sampler.py": "debdafd650a507f4e7a69aaae2e8a2eeaef318ce8981727e3a43c5c4a221468b",
+  "shrinkage.py": "9428a5ea028bbdefe264406fec396232e7358ec95f52879f115311b80758c751",
+  "smart.py": "0de57b11e790cbe3ef9e1ea9540513521f40fd4b90048e2f5dd4ff4eff658935",
+  "srts.py": "8c0cc1b808c6a0f5520fa7728a1590fc6f458fd15f925153a9ae0f6d905a4c29",
+  "tests_unit.py": "3ee5d5e483cc000f38f0ce770baea23247719cc25e4866776e9dca090021a1aa",
+  "theory_check.py": "979b207f3ee207111f9c624baba5853c969430370e287510db7ec1169c534e32"
+ },
+ "methods": [
+  "NoTS",
+  "TS-NLL",
+  "TvA-TS",
+  "HTS-NLL",
+  "HTS-BCE",
+  "SMART-SoftECE",
+  "SMART+BCE",
+  "Margin-K3",
+  "PWLinear-3",
+  "SRTS-BCE",
+  "SRTS-Shrink"
+ ],
+ "budgets": [
+  250,
+  625,
+  1250,
+  2500
+ ],
+ "draws": 20,
+ "sampling": "natural",
+ "draw_rng": "default_rng(77e6 + 1e6*seed + 1000*budget + draw)",
+ "primary_endpoints": [
+  "ece15",
+  "count_rel_err/errgap_a90"
+ ],
+ "primary_comparisons": [
+  "SRTS-BCE - TvA-TS @250",
+  "SRTS-BCE - SMART+BCE @250",
+  "SRTS-BCE - TvA-TS @2500",
+  "SRTS-BCE - SMART+BCE @2500",
+  "interaction(250-2500) vs TvA-TS",
+  "interaction(250-2500) vs SMART+BCE"
+ ],
+ "inference": "seed->draw hierarchical bootstrap B=20000, rng 20261009; CI incl 0 => not statistically resolved",
+ "confirmation_sets": {
+  "amazon_distilbert": "WILDS official OOD test (disjoint reviewers)",
+  "yahoo_distilbert": "official yahoo_answers_topics test table"
+ },
+ "statistical_limits": "yahoo: 3 training seeds (seed-cluster interval is a spread, not a calibrated CI); amazon: 5"
+}

@@ -1,0 +1,11 @@
+betacal==1.1.0
+datasets==2.14.7
+numpy==1.26.4
+omegaconf==2.3.1
+pandas==2.3.3
+relplot==1.0.3
+scikit-learn==1.6.1
+scipy==1.13.1
+torch==1.13.1+cu116
+transformers==4.30.2
+wilds==2.0.0

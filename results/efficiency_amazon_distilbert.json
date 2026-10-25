@@ -1,0 +1,50 @@
+{
+ "host": "p2-cpu-23",
+ "threads": 4,
+ "cell": "amazon_distilbert",
+ "n_fit": 46950,
+ "TS-NLL": {
+  "fit_seconds_p50": 0.10172167234122753,
+  "serialized_bytes": 21,
+  "peak_rss_delta_mb": 0.5625,
+  "batch1_us_p50": 9.745825082063675,
+  "batch1_us_p95": 10.059308260679245,
+  "batch256_us_p50": 0.15875593817327172
+ },
+ "TvA-TS": {
+  "fit_seconds_p50": 0.15043751196935773,
+  "serialized_bytes": 21,
+  "peak_rss_delta_mb": 0.0,
+  "batch1_us_p50": 10.753050446510315,
+  "batch1_us_p95": 11.02834939956665,
+  "batch256_us_p50": 0.17222282622242346
+ },
+ "HTS-BCE": {
+  "fit_seconds_p50": 1.7678422941826284,
+  "serialized_bytes": 163,
+  "peak_rss_delta_mb": 0.0,
+  "batch1_us_p50": 38.35349343717098,
+  "batch1_us_p95": 39.77797459810972,
+  "batch256_us_p50": 0.46334753278642893
+ },
+ "SRTS-BCE": {
+  "fit_seconds_p50": 0.7153699467889965,
+  "serialized_bytes": 491,
+  "peak_rss_delta_mb": 5.1875,
+  "batch1_us_p50": 79.08092811703682,
+  "batch1_us_p95": 83.81879888474941,
+  "batch256_us_p50": 0.7924336387077346
+ },
+ "SMART+BCE": {
+  "fit_seconds_p50": 21.2393195386976,
+  "serialized_bytes": 2107,
+  "peak_rss_delta_mb": 8.19921875,
+  "batch1_us_p50": 107.35215619206429,
+  "batch1_us_p95": 112.55948338657618,
+  "batch256_us_p50": 0.7545004336861894
+ },
+ "backbone_cpu_fp32": {
+  "batch1_ms_p50": 137.4576622620225,
+  "batch32_ms_per_sample_p50": 139.1675177583238
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "seed": 3,
+ "smoke": false,
+ "epochs": 1,
+ "batch": 8,
+ "lr": 1e-05,
+ "wd": 0.01,
+ "maxlen": 300,
+ "steps": 33630,
+ "n_train": 269038,
+ "n_val_check": 9580,
+ "n_val_calib": 86218,
+ "n_test": 97320,
+ "selection": "none (end of epoch)",
+ "torch": "1.13.1+cu116",
+ "gpu": "NVIDIA A100-SXM4-40GB"
+}

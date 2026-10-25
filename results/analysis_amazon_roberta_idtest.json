@@ -1,0 +1,114 @@
+{
+ "amazon_roberta": {
+  "250": {
+   "SRTS-BCE - TvA-TS": {
+    "point": 0.3412093955620605,
+    "hier_ci": [
+     -0.12498583780844047,
+     0.9113753322310538
+    ],
+    "excludes_zero": false,
+    "resolved": "not statistically resolved",
+    "per_seed": {
+     "0": 0.18085224332801234,
+     "1": 0.8342263110838568,
+     "2": 0.00854963227431219
+    },
+    "seed_cluster_range": [
+     0.00854963227431219,
+     0.8342263110838568
+    ],
+    "win_rate_desc": 0.5,
+    "sign_frac_boot_desc": 0.0992,
+    "n_seeds": 3,
+    "n_draws": 60
+   },
+   "SRTS-BCE - SMART+BCE": {
+    "point": -0.45763366148806206,
+    "hier_ci": [
+     -0.8596983811868385,
+     -0.04583811199856221
+    ],
+    "excludes_zero": true,
+    "resolved": "yes",
+    "per_seed": {
+     "0": -0.7809146287814047,
+     "1": -0.4897215759329384,
+     "2": -0.10226477974984305
+    },
+    "seed_cluster_range": [
+     -0.7809146287814047,
+     -0.10226477974984305
+    ],
+    "win_rate_desc": 0.65,
+    "sign_frac_boot_desc": 0.98545,
+    "n_seeds": 3,
+    "n_draws": 60
+   }
+  },
+  "2500": {
+   "SRTS-BCE - TvA-TS": {
+    "point": -0.9679189537374756,
+    "hier_ci": [
+     -1.3026583768800388,
+     -0.4514617919967733
+    ],
+    "excludes_zero": true,
+    "resolved": "yes",
+    "per_seed": {
+     "0": -1.2150398324601062,
+     "1": -0.4357748714562,
+     "2": -1.2529421572961206
+    },
+    "seed_cluster_range": [
+     -1.2529421572961206,
+     -0.4357748714562
+    ],
+    "win_rate_desc": 0.9666666666666667,
+    "sign_frac_boot_desc": 1.0,
+    "n_seeds": 3,
+    "n_draws": 60
+   },
+   "SRTS-BCE - SMART+BCE": {
+    "point": -0.06808815619283486,
+    "hier_ci": [
+     -0.20796176387165494,
+     0.06546829554875318
+    ],
+    "excludes_zero": false,
+    "resolved": "not statistically resolved",
+    "per_seed": {
+     "0": -0.19962886499611093,
+     "1": -0.030315075936160073,
+     "2": 0.02567947235376645
+    },
+    "seed_cluster_range": [
+     -0.19962886499611093,
+     0.02567947235376645
+    ],
+    "win_rate_desc": 0.55,
+    "sign_frac_boot_desc": 0.8316,
+    "n_seeds": 3,
+    "n_draws": 60
+   }
+  },
+  "interaction_250_minus_2500": {
+   "SRTS-BCE - TvA-TS": {
+    "point": 1.309128349299536,
+    "hier_ci": [
+     0.9739652139452498,
+     1.6836959569571923
+    ],
+    "excludes_zero": true
+   },
+   "SRTS-BCE - SMART+BCE": {
+    "point": -0.3895455052952273,
+    "hier_ci": [
+     -0.735068792635596,
+     -0.03978066695545422
+    ],
+    "excludes_zero": true
+   }
+  }
+ }
+}
