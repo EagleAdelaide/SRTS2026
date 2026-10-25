@@ -183,7 +183,7 @@
  "paper/generated/q1_ece_table.tex": "d74d44ab832623bb4b261aee7eb8d55bff3ccc6007dfbb0eac29e3d4f7d30019",
  "paper/generated/q3_replication_table.tex": "061bbc9f0cbc898b231276232aae9a28c26d03bbb8dd8d852f61e83fd480b641",
  "paper/generated/reviewer_cluster_table.tex": "30b77a7ed2ef6b7d8c49bc0ca4004572b370d8606461574dafad18ce6d5e4a6f",
- "paper/main.tex": "af39e02e540b2f602fb6513ad8b16075a5f25fbda6480ef456a60816176fe421",
+ "paper/main.tex": "8780846c3959d4849a8721e030586c8323d22ba84399eb9fca914c1de4b6c7ef",
  "reproduce_layer_B.sh": "f1be5f0c1e89728c89ab2ff5acfc445079be7fed2aa71e9d30cd5f525e744b1c",
  "results/CONFIRMATION/UNBLINDED.stamp": "0644fc909e53e5b10b3caec979aa13d768d2072e3d2f4ca5e9321065704266d3",
  "results/CONFIRMATION/UNBLINDED_amazon_distilbert.stamp": "658c66889621b337578fd2a736bbe00feac660a9ba397be31ced34df4448f66f",
