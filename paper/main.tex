@@ -83,11 +83,12 @@ for review-rating and question-topic classification, with toxicity
 classification as an external check (Figure~\ref{fig:reversal}); they involve no live moderation deployment
 and no measured review-cost reduction.
 
-We ask three questions:
+We ask when the gap arises, how it decomposes, and what an audit can
+establish:
 \begin{itemize}
-\item[\textbf{RQ1}] Which aggregate calibration improvements (whole-split ECE,
-whole-batch error count) fail to carry over to the error forecast for the
-accepted set, across label budgets, tasks and user populations?
+\item[\textbf{RQ1}] When do aggregate gains (whole-split ECE, whole-batch
+error count) fail to carry over to the accepted-set error forecast across
+label budgets, tasks and user populations?
 \item[\textbf{RQ2}] How do changes in the reported scores and in the
 selected items account for the discrepancy?
 \item[\textbf{RQ3}] What can a small audit with labels from the served
@@ -113,8 +114,7 @@ the 15-bin expected calibration error; TS is temperature scaling; BCE is
 binary cross-entropy of $c$ against $b$. Figure~\ref{fig:reversal} shows one case: on unseen Amazon
 reviewers, replacing the scalar map by SRTS-BCE lowers ECE from 3.12 to
 2.51 and the whole-batch count error from 11.1\% to 8.6\%, while the
-signed accepted-set bias grows from $+0.9$ to $+2.5$ points; this is one setting,
-not a property of every budget or task.
+signed accepted-set bias grows from $+0.9$ to $+2.5$ points.
 
 \begin{figure}[t]
 \centering
@@ -138,13 +138,10 @@ of flexible calibration maps is already known~\cite{balanya2024adaptive,tomani20
 although SMART reports a favourable small-label regime under its own
 settings~\cite{guo2026smart}. TvA and CalArena evaluate post-hoc maps on text and on large benchmarks
 with random partitions~\cite{lecoz2024tva,berta2026calarena}. Distribution-shift
-calibration~\cite{ovadia2019shift,desai2020calibration}, selectively
-calibrated prediction~\cite{fisch2022selective}, and calibration for
-downstream decisions~\cite{zhao2021decision} provide important foundations.
-Deferral to congested human review has been modelled with content
-moderation as the motivating case~\cite{lykouris2024defer}, and a recent
-clinical study reports selective prediction degrading despite strong
-aggregate metrics~\cite{lopez2026selective}. Building on these findings, we examine a narrower empirical question:
+calibration~\cite{ovadia2019shift,desai2020calibration} and selectively
+calibrated prediction~\cite{fisch2022selective} provide important
+foundations, and a recent clinical study reports selective prediction
+degrading despite strong aggregate metrics~\cite{lopez2026selective}. Building on these findings, we examine a narrower empirical question:
 for the \emph{same prediction-preserving post-hoc maps}, do whole-batch
 and threshold-accepted-set error forecasts improve consistently across
 exact calibration-label budgets and previously unseen Web users?
@@ -155,14 +152,14 @@ analyses of these rows are post hoc; the CivilComments check has its own
 primary family, fixed before outcomes, with one disclosed amendment
 (Section~\ref{sec:civil}). (C1) \emph{Aggregate gains that miss the
 accepted set (RQ1).} With exact, paired calibration draws, the Amazon
-scalar--conditional ECE ordering crosses as $n$ increases, including on
-1{,}334 unseen reviewers, while Yahoo favours the scalar
+scalar--conditional ECE ordering crosses as $n$ increases, also on
+unseen reviewers, while Yahoo favours the scalar
 (Figure~\ref{fig:budget}). On two disjoint Amazon reviewer splits unseen
 during backbone training, four conditional BCE maps reduce whole-batch
 count error yet increase mean absolute accepted-set bias relative to a
 scalar map, also at matched coverage; on seen reviewers, Yahoo and
 CivilComments the direction differs (Figure~\ref{fig:endpoints}). (C2)
-\emph{Scores, selection and the $D,H$ distinction (RQ2).} With $D=g_C-g_B$
+\emph{A population-dependent direction (RQ2).} With $D=g_C-g_B$
 the change in signed accepted-set bias and $H=(g_C+g_B)/2$, $|g|$ narrows
 exactly when $DH<0$; for $D>0$, when the scalar is
 underconfident by more than half of $D$ ($g_B<-D/2$). At $n{=}2500$ and $t{=}0.90$ this accounts for the contrasting seen and
@@ -174,11 +171,11 @@ change is higher reported confidence on accepted items, in either accounting
 order; on CivilComments a different accepted set matters
 more. These are accounting identities, not causal effects. (C3) \emph{Estimation, decision and generalization (RQ3).}
 Established designs estimate $D$ from a few hundred target labels if they
-sample errors rather than raw correctness. Deciding whether $|g|$ shrinks
-needs the sign of $H$: in the seen-reviewer cells where the
-map helps, the joint $(D,H)$ test we evaluated reaches mean power 0.31,
-0.58 and 0.84 under caps of 1{,}000, 2{,}500 and 5{,}000 labels
-(fixed-pool inference), and 0.59 at the largest cap on CivilComments.
+sample errors rather than raw correctness, but deciding whether $|g|$
+shrinks needs the sign of $H$: in the seen-reviewer cells where the map
+helps, the joint $(D,H)$ test we evaluated reaches mean power 0.84 under
+a 5{,}000-label cap (fixed-pool inference), and 0.59 at the largest cap
+on CivilComments.
 Across 50 reviewer partitions, full-label choices made on one half carry
 over to the other with small regret (Figure~\ref{fig:closure}).
 SRTS-BCE serves as a ten-coefficient risk-routed study instance; all main
@@ -188,7 +185,7 @@ recomputes every quoted number.
 
 \section{Related Work and Position}
 \label{sec:related}
-\textbf{Scalar and adaptive temperature maps.} Temperature scaling fits
+\textbf{Post-hoc calibration maps.} Temperature scaling fits
 one scalar by NLL~\cite{guo2017calibration}; TvA-TS keeps one scalar but
 fits top-label BCE~\cite{lecoz2024tva}. HTS maps normalized entropy to a
 temperature with two parameters and studies a family of adaptive maps at
@@ -196,12 +193,15 @@ calibration sizes down to 200~\cite{balanya2024adaptive}. PTS uses a
 91-parameter network on sorted logits~\cite{tomani2022pts}; AdaTS
 conditions a VAE on features~\cite{joy2023sample}; SMART regresses the
 temperature on the logit margin~\cite{guo2026smart}; QaTS uses confidence
-quantiles~\cite{chakraborty2026qats}. \textbf{Grouped and ensemble
-calibration.} Semantic-Aware Grouping learns feature-space
+quantiles~\cite{chakraborty2026qats}. Among grouped and ensemble maps,
+Semantic-Aware Grouping learns feature-space
 partitions~\cite{yang2023semantic}, Mix-n-Match ensembles
 calibrators~\cite{zhang2020mixnmatch}, Dirichlet maps with ODIR regularize
 a full matrix~\cite{kull2019dirichlet}, and Meta-Cal controls
-miscoverage~\cite{ma2021metacal}. \textbf{Selective prediction.}
+miscoverage~\cite{ma2021metacal}. \textbf{Decision-aware evaluation.} Calibration
+for downstream decisions~\cite{zhao2021decision} and deferral to congested
+human review, motivated by content moderation~\cite{lykouris2024defer},
+tie predictions to the actions they trigger. \textbf{Selective prediction and calibration.}
 Thresholding the maximum softmax probability is the standard selective
 classification baseline~\cite{geifman2017selective}; it is evaluated by risk at a fixed coverage or by the area under the risk--coverage curve (AURC), which depend on the
 ranking of confidences. Selective calibration instead requires the accepted
@@ -212,7 +212,7 @@ rejector jointly with a recalibrator~\cite{zollo2024selective}. We measure a nar
 fixed-threshold accept rule: the mean bias $g(A_t)$ of the accepted set,
 which can be zero while accepted items are miscalibrated at individual
 confidence levels, and which is neither an error rate nor a measure of
-safety or business value. \textbf{Label-efficient evaluation.} Active
+safety or business value. \textbf{Label-efficient model auditing.} Active
 testing~\cite{kossen2021active}, including Neyman-allocated
 variants~\cite{liu2026neyman}, active comparison of two
 models~\cite{sawade2012active}, prediction-powered and active
@@ -230,7 +230,8 @@ with official code or audited ports (Appendix~\ref{app:fidelity}).
 
 \section{Calibrators and Controls}
 \label{sec:method}
-\textbf{Maps compared.} The scalar maps are TS-NLL and TvA-TS (one
+\textbf{Maps compared.} In the main suite, the temperature maps have 1--49
+fitted coefficients and all preserve $\hat y$. The scalar maps are TS-NLL and TvA-TS (one
 temperature, top-label BCE). HTS uses $T=\mathrm{softplus}(w\log\bar
 H+b)$ on normalized entropy $\bar H$, fit natively by NLL or by BCE
 (HTS+BCE, two coefficients). SMART maps the logit gap through a
@@ -255,7 +256,6 @@ three temperatures) plus two thresholds and twelve stored moments.
 PWLinear-3 replaces step (4) by a continuous map that interpolates three
 softplus-parameterized temperatures placed at the $\{1/6,1/2,5/6\}$
 quantiles of the score, fit jointly by BCE; it uses the same router.
-
 \textbf{Supporting controls.} Two nested capacity families, a
 score-construction control and a local account of grouping support the
 budget dependence (Appendix~\ref{app:capacity}).
@@ -354,12 +354,11 @@ Comparison & $n{=}250$ & $2500$ & $n{=}250$ & $2500$ & $n{=}250$ & $2500$\\
 \end{tabular}
 \end{table*}
 
-\subsection{RQ1: Aggregate gains that miss the accepted set}
+\subsection{RQ1: Aggregate and Accepted-Set Forecasts}
 \label{sec:rq1}
-
-
-
-On the \emph{Amazon} confirmation set (Table~\ref{tab:q1}; budget means in Figure~\ref{fig:budget}) the
+On unseen Amazon reviewers, the conditional maps improve the whole-batch
+forecast but worsen the accepted-set forecast (post hoc;
+Figure~\ref{fig:endpoints}). \textbf{Budget-dependent ECE rankings.} On the \emph{Amazon} confirmation set (Table~\ref{tab:q1}; budget means in Figure~\ref{fig:budget}) the
 scalar has lower ECE than SRTS-BCE at $n{=}250$ and SRTS-BCE has lower ECE at $1250$ and
 $2500$ (intervals exclude zero), whereas the difference at $625$ is not statistically resolved; all five seeds agree in sign at $250$, $1250$ and $2500$. Both
 frozen interactions $\Delta(250)-\Delta(2500)$ exclude zero ($+0.95$
@@ -442,16 +441,14 @@ Split & $n$ & count & fixed $t$ & matched\\
 \bottomrule
 \end{tabular}
 \end{table}
-\textbf{Batch versus accepted-set forecasts.} Figure~\ref{fig:endpoints} shows the operating point
-$n{=}2500$, $t{=}0.90$ for the three tasks; Appendix
-Figure~\ref{fig:endpoints-full} gives all 64 confirmation-set contrasts of
-the post-hoc plan (both budgets, three thresholds, matched coverage), and
-Table~\ref{tab:q3rep} summarizes every split. On the \emph{Amazon} confirmation set every
+\textbf{Batch versus accepted-set forecasts.} On the \emph{Amazon} confirmation set every
 conditional map has a lower mean whole-split count error than the scalar at
 both budgets (by 1.2 to 3.0 points; 8 of 8 at 95\%, 6 of 8 after
-Bonferroni), and every one has a wider mean accepted-set gap at every
+Bonferroni), yet every one has a wider mean accepted-set gap at every
 threshold and budget (by 0.6 to 2.8 points; 24 of 24, all
 Bonferroni-supported and all excluding zero in seed-level $t$ intervals).
+Appendix Figure~\ref{fig:endpoints-full} gives all 64 post-hoc
+confirmation-set contrasts, and Table~\ref{tab:q3rep} every split.
 At $n{=}2500$ the four maps also have the lower ECE (Table~\ref{tab:q1}),
 so a better ECE and a better batch count coincide with a less reliable
 accepted set; at $n{=}250$ only HTS+BCE has a lower mean ECE than the
@@ -463,12 +460,7 @@ Holding coverage equal to the scalar's within each split removes the
 difference in how many items are accepted; all 24 means per unseen set stay
 wider, 23 (confirmation) and 19 (OOD validation) Bonferroni-supported, so at
 equal coverage the most confident items carry a larger mean bias under the
-conditional maps. On reviewers seen in training (Amazon ID test) the
-direction depends on budget and threshold: at $n{=}250$ all twelve
-fixed-threshold means are wider (two Bonferroni-supported); at $n{=}2500$
-the four at $t{=}0.80$ are wider (PWLinear-3 Bonferroni-supported) and the
-eight at $t{=}0.90$ and $0.95$ narrower, three of them Bonferroni-supported
-at the fixed threshold and four at matched coverage, all at $t{=}0.95$.
+conditional maps.
 
 Through Eq.~\eqref{eq:decomp} at $t{=}0.90$, $n{=}2500$, all maps leave unseen reviewers' items overconfident; the
 scalar's rejected set has a mean bias of $+3.7$ points and its accepted
@@ -493,8 +485,14 @@ differs from the scalar's by at most $0.3$ points and AURC by at most
 $0.7$ points (largest: SMART+BCE at $n{=}250$ on Amazon, resolved);
 recalibration mainly changes the confidence values a threshold reads.
 
-\textbf{A paired seen-versus-unseen contrast.} Within each map, budget,
-threshold, seed and draw, $\Gamma=\Delta_{\text{unseen}}-\Delta_{\text{seen}}$
+\textbf{Seen versus unseen reviewers.} On reviewers seen in training (Amazon ID test) the
+direction depends on budget and threshold: at $n{=}250$ all twelve
+fixed-threshold means are wider (two Bonferroni-supported); at $n{=}2500$
+the four at $t{=}0.80$ are wider (PWLinear-3 Bonferroni-supported) and the
+eight at $t{=}0.90$ and $0.95$ narrower, three of them Bonferroni-supported
+at the fixed threshold and four at matched coverage, all at $t{=}0.95$.
+Within each map, budget, threshold, seed and draw, the paired contrast
+$\Gamma=\Delta_{\text{unseen}}-\Delta_{\text{seen}}$
 compares the change in $|g|$ on unseen and on seen reviewers for the same
 fitted calibrators, with $\Delta=|g_{\text{map}}|-|g_{\text{scalar}}|$ (96
 contrasts, fixed after the per-split means were known; Appendix
@@ -502,7 +500,8 @@ Table~\ref{tab:gamma}). At $n{=}2500$ and $t{=}0.90$ the maps narrow the gap
 on seen reviewers by 0.19 to 0.33 points and widen it on unseen ones by 1.1
 to 1.5, so $\Gamma$ is 1.45 to 1.77 points; over all 96 contrasts $\Gamma$
 is positive (0.41 to 2.04 points), and the Bonferroni(96) intervals
-exclude zero for 90 in two independent bootstrap streams. Resampling
+exclude zero for 90 in two independent bootstrap streams, a
+family-corrected statement that rests on the seed$\to$draw bootstrap. Resampling
 evaluation reviewers as clusters makes the intervals 1.2 to 1.5 times as
 wide; all eight $\Gamma$ at $n{=}2500$, $t{=}0.90$ stay above zero, but
 $\Delta_{\text{seen}}$ is not statistically resolved for any map.
@@ -542,7 +541,8 @@ where $S$ is the change in reported confidence on the set the map
 accepts and $P$ the effect of accepting a different set, evaluated with
 the scalar's residual; swapping roles ($S'$ on the scalar's set, $P'$ with
 the map's residual) gives a second exact split. Neither splits
-$|g_C|-|g_B|$, and the two can disagree. On Amazon at $n{=}2500$ the score
+$|g_C|-|g_B|$, and the orders differ by $S-S'$, the mean score change on
+$A_C$ minus that on $A_B$. On Amazon at $n{=}2500$ the score
 term dominates in both orders: at $t{=}0.90$, $S$ is $+1.25$ to $+1.42$ points
 for the four maps on seen and on unseen reviewers, and $P$ is $+0.02$ to
 $+0.08$ on seen and $+0.07$ to $+0.22$ on unseen reviewers (at most 14\%
@@ -554,7 +554,8 @@ is at most a third ($+0.50$ points at $t{=}0.95$;
 Figure~\ref{fig:boundary}b). At $n{=}250$ the split depends on the order
 (reverse-order selection share up to 73\%), and we do not interpret it.
 
-The direction of the change in $|g|$ follows from an exact condition.
+The direction of the change in $|g|$ is characterized by the following
+exact condition.
 Since $g_C^2-g_B^2=2DH$ with $D=g_C-g_B$ and $H=(g_C+g_B)/2$,
 $|g_C|<|g_B|$ exactly when $DH<0$; for $D>0$, when $g_B<-D/2$: the
 scalar must be underconfident by more than half the change. At
@@ -569,7 +570,7 @@ close to the boundary, which makes them hard to certify
 maps, not a causal decomposition; it uses inspected splits and is
 exploratory.
 
-\subsection{RQ3: What a small target-label audit can estimate, decide and transfer (post hoc)}
+\subsection{RQ3: Target-Label Auditing}
 \label{sec:audit}
 \begin{figure*}[t]
 \centering
@@ -591,6 +592,10 @@ Partitions share models and population: sensitivity analyses, not
 independent replications.}
 \label{fig:closure}
 \end{figure*}
+In this post-hoc analysis, estimating $D$ took far fewer target labels
+than deciding whether $|g|$ shrinks, and full-label choices carried over
+between reviewer halves with small regret.
+
 \textbf{Setup.} For one map $C$ against the scalar $B$ at one threshold we
 separate three questions: \emph{estimate} $D=g_C-g_B$ on the audited
 users, \emph{decide} whether $|g_C|<|g_B|$ there, and \emph{generalize}
@@ -618,17 +623,17 @@ RMSE $0.64$ points at 100 labels and $0.18$ at 1{,}000
 (Figure~\ref{fig:closure}a). Error-centred importance sampling, active
 inference with Poisson sampling~\cite{zrnic2024active} and LURE active
 testing~\cite{kossen2021active} match it at equal distinct labels (RMSE
-ratios 0.91 to 1.12 over both populations and all budgets), and error-centred union sampling has 1.8 to 2.5 times the RMSE of
-switcher-stratified sampling; union sampling of raw correctness has 5.3 to 8.2 times the RMSE of
-switcher-stratified sampling, because its sampled positive- and negative-weight terms nearly
+ratios 0.91 to 1.12 over both populations and all budgets), whereas error-centred and raw-correctness union sampling have
+1.8 to 2.5 and 5.3 to 8.2 times the RMSE of
+switcher-stratified sampling, respectively, the latter because its sampled positive- and negative-weight terms nearly
 cancel with large sampling variance: what matters is to
 centre on errors and separate the signed weights, not a particular
 design. Per cell, these nominal 95\% intervals have median coverage 0.94 to 0.95
 from 100 labels, but their worst cells reach only 0.83 to 0.89, and error-centred union sampling has median empirical coverage of 0.63,
 with a minimum of 0.13 across the evaluated cells.
 
-\textbf{Decide.} Because $g_C^2-g_B^2=2DH$ with $H=(g_C+g_B)/2$,
-$|g_C|<|g_B|$ exactly when $DH<0$; the decision needs the sign of $H$,
+\textbf{Decide.} Since $|g_C|<|g_B|$ exactly when $DH<0$
+(Section~\ref{sec:mechanism}), the decision needs the sign of $H$,
 which weights the whole accepted sets and hence the scalar's level
 $g_B$. We compare an interval rule with an Agresti--Coull level variance (G1,
 the plan's corrected guardrail), a plug-in test of $H$ that estimates $D$ and ignores its
@@ -649,8 +654,8 @@ beneficial cells, G3 reaches 80\% power by 1{,}000 labels in 2, by
 of the evaluated tests, not optimal or unavoidable label requirements
 (Appendix~\ref{app:posthoc} gives a conceptual identical-set example). On
 unseen reviewers the map is better in 1 of 60 cells, and no corrected
-procedure makes a false switch in more than 1.1\% of audits (the plan's
-original guardrail: up to 45\% at 25 labels).
+procedure makes a false switch in more than 1.1\% of audits (original
+guardrail: up to 45\% at 25 labels).
 
 \textbf{Generalize.} With full labels, the better map differs between
 the audit and evaluation halves in 13 of 60 seen-reviewer cells (9 when
@@ -669,7 +674,7 @@ a reviewer-specific failure to generalize: the flips are finite-cohort
 variation in near-tie cells. The partitions share five models and one population, so they are
 sensitivity summaries, not independent replications.
 
-\subsection{External check on CivilComments (protocol frozen before outcomes)}
+\subsection{External Check on CivilComments}
 \label{sec:civil}
 \textbf{Protocol.} Before computing any test-set result, we finalized the protocol, code and
 analysis plan for binary toxicity classification on CivilComments: five DistilBERT runs with the Amazon recipe, calibration draws from a
@@ -682,7 +687,8 @@ after 2 of 200 fits diverged (Appendix~\ref{app:civil}).
 \textbf{Results.} At $n{=}2500$ every conditional map lowers ECE (by 0.47
 to 1.04 points) and count error (by 7.9 to 11.9 points) and, unlike on
 unseen Amazon reviewers, also lowers mean $|g|$ in 11 of 12
-map--threshold cells (10 Bonferroni-resolved). In the pre-specified
+map--threshold cells (10 Bonferroni-resolved), so the Amazon mismatch is not
+a general property of these maps. In the pre-specified
 family ($t{=}0.90$, Bonferroni over four maps), HTS-BCE, SMART+BCE and
 PWLinear-3 reduce $|g(A_{0.90})|$ by 0.14 to 0.16 points, whereas
 SRTS-BCE increases it by 0.06 $[0.03,0.10]$; each sign holds in all five runs and at matched coverage
@@ -707,7 +713,10 @@ switches at most 2.25\% per cell).
 \section{Discussion and Limitations}
 \label{sec:discussion}
 
-\textbf{What the estimand covers.} We measure whether the error-rate
+\textbf{What the results show.} Aggregate gains did not determine the
+direction of the accepted-set change, which the identity of RQ2 accounts for
+in each population.
+\emph{Estimand.} We measure whether the error-rate
 forecast for accepted items is accurate, not whether an item should be
 accepted or review is cost-effective; the datasets contain no moderation
 decisions, queues or costs, and a small mean gap does not certify
@@ -753,10 +762,7 @@ making the forecast for automatically handled items less accurate. In explorator
 Amazon splits, four conditional BCE maps reduce whole-batch error-count
 error and, at $n{=}2500$, ECE, while increasing mean accepted-set
 overconfidence relative to scalar TvA-TS, including at matched coverage;
-ECE rankings depend on label budget and task. The 24 confirmation-set gap
-contrasts are also supported by seed-level intervals, whereas support for
-most of the 96 seen-versus-unseen contrasts relies on the seed$\to$draw
-bootstrap. On Amazon at $n{=}2500$, changes in reported confidence dominate the
+ECE rankings depend on label budget and task. On Amazon at $n{=}2500$, changes in reported confidence dominate the
 change in signed accepted-set bias. Absolute bias decreases
 exactly when $DH<0$; for a positive bias change $D=g_C-g_B$, when
 $g_B<-D/2$. On
@@ -765,11 +771,11 @@ CivilComments, where the scalar's bias differs, the same maps narrow the absolut
 served population. In the evaluated audits, estimating such a change took far fewer labels
 than deciding whether it helps: a few hundred labels estimate the signed
 difference, whereas the joint test we evaluated needed caps of thousands
-of labels for high power at margins of a few tenths of a point. Web
-systems choosing a confidence threshold should therefore audit the error
-forecast for the population and selected set they serve, separately from
-global ECE and batch totals; this is a measurement recommendation, not a
-validated deployment policy.
+of labels for high power at margins of a few tenths of a point. We
+offer a measurement recommendation, not a validated
+deployment policy: threshold-based Web systems should
+evaluate the error forecast for the population and accepted set actually
+served, separately from aggregate calibration metrics.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{references}
@@ -844,7 +850,7 @@ shown.
 ECE$_{15}$, mean$\pm$std of per-seed means) at the anchor budgets.
 Dirichlet-ODIR changes $\approx$1\% of predictions; all others preserve
 $\arg\max$. AdaTS at Amazon $n{=}250$ is unstable (std 16); Mix-n-Match
-(weights $(1,0,0)$) and Meta-Cal's confidence view reproduce TS-NLL.}
+(weights $(1,0,0)$) and Meta-Cal's confidence view reproduce TS-NLL. +BCE: our BCE objective.}
 \label{tab:ext}
 \begin{tabular}{lrrrr}
 \toprule

@@ -167,5 +167,23 @@ class EditorialFixes(unittest.TestCase):
                       "(the native-NLL HTS does not)", TEX)
         self.assertNotIn("beat the scalar", TEX)
 
+    # --- A* narrative revision (2026-10-26): statuses moved out of headings stay in the text; claims keep their scope
+    def test_astar_narrative(self):
+        for x in ("\\subsection{RQ1: Aggregate and Accepted-Set Forecasts}", "\\subsection{RQ3: Target-Label Auditing}",
+                  "\\subsection{External Check on CivilComments}",
+                  "worsen the accepted-set forecast (post hoc; Figure~\\ref{fig:endpoints})",
+                  "In this post-hoc analysis, estimating $D$ took far fewer target labels",
+                  "Before computing any test-set result, we finalized the protocol",
+                  "so the Amazon mismatch is not a general property of these maps",
+                  "a family-corrected statement that rests on the seed$\\to$draw bootstrap",
+                  "\\emph{A population-dependent direction (RQ2).}", "These are accounting identities, not causal effects.",
+                  "not a validated deployment policy"):
+            self.assertIn(x, TEX, x)
+        concl = TEX[TEX.index("\\section{Conclusion}"):TEX.index("\\bibliographystyle")]
+        self.assertTrue(concl.rstrip().endswith("separately from aggregate calibration metrics."))
+        self.assertNotIn("relies on the seed$\\to$draw", concl)                  # significance counts left the Conclusion
+        for gone in ("transfer (post hoc)}", "(protocol frozen before outcomes)}", "Aggregate gains that miss the accepted set}"):
+            self.assertNotIn(gone, TEX, gone)
+
 if __name__ == "__main__":
     unittest.main()

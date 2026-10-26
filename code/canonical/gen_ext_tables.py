@@ -24,9 +24,14 @@ def load(g, split):
 def ext_baselines():
     cells = {"anchor": load("suite_ext/c100_vit_s*/c100_vit_ext_natural.jsonl", "test"),
              "amazon": load("suite_ext/amazon_s*/amazon_distilbert_ext_natural.jsonl", "id_test")}
-    METH = [("PTS", "PTS (MSE)"), ("PTS-BCE", "PTS+BCE"), ("AdaTS", "AdaTS (CondVAE)"),
-            ("SAG", "Sem.-Aware Grouping"), ("DirODIR", "Dirichlet-ODIR"), ("ETS", "Mix-n-Match ETS"),
-            ("MetaCal", "Meta-Cal (conf.\\ view)"), ("LogitMLP-T", "LogitMLP-T")]
+    # citation audit (2026-10-26): original-method citations beside the names; the +BCE row credits the
+    # cited architecture only (BCE objective evaluated here); LogitMLP-T is an internal control (no citation).
+    # Short labels keep every citation on one line within the column: 'Sem.-Aware' (full name Semantic-Aware
+    # Grouping in Appendix A) and 'Meta-Cal' (its confidence view is named in the caption).
+    METH = [("PTS", "PTS (MSE)~\\cite{tomani2022pts}"), ("PTS-BCE", "PTS+BCE~\\cite{tomani2022pts}"),
+            ("AdaTS", "AdaTS (CondVAE)~\\cite{joy2023sample}"), ("SAG", "Sem.-Aware~\\cite{yang2023semantic}"),
+            ("DirODIR", "Dirichlet-ODIR~\\cite{kull2019dirichlet}"), ("ETS", "Mix-n-Match ETS~\\cite{zhang2020mixnmatch}"),
+            ("MetaCal", "Meta-Cal~\\cite{ma2021metacal}"), ("LogitMLP-T", "LogitMLP-T")]
 
     def ms(rows, m, b):
         per = defaultdict(list)
