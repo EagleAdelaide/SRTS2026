@@ -1,5 +1,9 @@
 # Accepted-set calibration under label budgets and user shift: review code
 
+![Conceptual overview of global calibration, confidence-based routing, and accepted-set bias](figures/global-calibration-accepted-set-bias.png)
+
+**Conceptual overview.** A frozen classifier is recalibrated before confidence-threshold routing. On unseen Amazon reviewers (*n* = 2,500, *t* = 0.90), replacing scalar TvA-TS with SRTS-BCE reduces ECE₁₅ from 3.12% to 2.51% and relative whole-batch error-count error from 11.1% to 8.6%, while signed accepted-set bias increases from +0.9 to +2.5 percentage points. This is an illustrative post-hoc offline comparison; each calibrator defines its own accepted set, and the schematic is not to scale.
+
 Anonymous code for a double-blind submission. It refits every calibrator from the
 included logits and recomputes every table, figure, interval and quoted number of
 the paper from the included per-run results.
